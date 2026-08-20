@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Node
+node_modules/
+dist/
+
+# Env
+.env
+.venv
+
+# DB
+*.db
+mysql_data/
+
+# OS
+.DS_Store
+.dockerignore
+
+.env.*
+!.env.example

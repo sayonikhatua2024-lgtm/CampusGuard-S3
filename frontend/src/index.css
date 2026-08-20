@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-base-950 text-base-500 antialiased;
+  background-image:
+    radial-gradient(circle at 15% 0%, rgba(90,169,255,0.06), transparent 40%),
+    radial-gradient(circle at 85% 20%, rgba(61,220,151,0.05), transparent 45%);
+  background-attachment: fixed;
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #232833; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #333a48; }
+
+:focus-visible {
+  outline: 2px solid #5aa9ff;
+  outline-offset: 2px;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+.pulse-dot { animation: pulse-dot 1.8s ease-in-out infinite; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fade-in 0.35s ease-out; }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-toast-in { animation: toast-in 0.25s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot { animation: none; }
+  .animate-fade-in { animation: none; }
+  .animate-toast-in { animation: none; }
+}
