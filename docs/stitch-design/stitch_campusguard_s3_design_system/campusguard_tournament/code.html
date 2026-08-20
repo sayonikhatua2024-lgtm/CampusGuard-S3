@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Recovery Plan Tournament</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary": "#42e09a",
+                        "secondary-container": "#00c07e",
+                        "signal-crit": "#ff5c5c",
+                        "secondary-fixed-dim": "#42e09a",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "secondary-fixed": "#65fdb5",
+                        "on-secondary-container": "#00472c",
+                        "on-primary": "#00325a",
+                        "on-primary-fixed": "#001c37",
+                        "on-error": "#690005",
+                        "text-muted": "#333a48",
+                        "on-surface-variant": "#c0c7d3",
+                        "inverse-primary": "#0060a7",
+                        "on-primary-container": "#003d6c",
+                        "on-tertiary": "#422d00",
+                        "error-container": "#93000a",
+                        "surface": "#121316",
+                        "on-secondary": "#003822",
+                        "text-primary": "#ffffff",
+                        "on-tertiary-container": "#503700",
+                        "on-secondary-fixed": "#002112",
+                        "outline": "#8a919d",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed": "#d2e4ff",
+                        "primary-container": "#5aa9ff",
+                        "surface-variant": "#343538",
+                        "tertiary": "#f9bc45",
+                        "surface-container-low": "#1b1b1f",
+                        "text-secondary": "#4a5262",
+                        "surface-elevated": "#0d0f14",
+                        "on-background": "#e3e2e6",
+                        "inverse-on-surface": "#2f3034",
+                        "outline-variant": "#404751",
+                        "inverse-surface": "#e3e2e6",
+                        "on-tertiary-fixed": "#271900",
+                        "surface-container-highest": "#343538",
+                        "background": "#121316",
+                        "on-primary-fixed-variant": "#004880",
+                        "surface-container-lowest": "#0d0e11",
+                        "surface-tint": "#a1c9ff",
+                        "tertiary-fixed": "#ffdea8",
+                        "surface-container-high": "#292a2d",
+                        "border-hairline": "#232833",
+                        "primary-fixed-dim": "#a1c9ff",
+                        "tertiary-container": "#d49c25",
+                        "surface-container": "#1f1f23",
+                        "on-surface": "#e3e2e6",
+                        "tertiary-fixed-dim": "#f9bc45",
+                        "primary": "#a1c9ff",
+                        "surface-dim": "#121316",
+                        "on-secondary-fixed-variant": "#005233",
+                        "error": "#ffb4ab",
+                        "surface-bright": "#38393d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "panel-gap": "12px",
+                        "container-padding": "20px",
+                        "gutter": "16px",
+                        "margin-desktop": "24px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "badge-mono": ["JetBrains Mono"],
+                        "code-stat": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "code-data": ["JetBrains Mono"],
+                        "body-base": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+                        "badge-mono": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "code-stat": ["24px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "code-data": ["12px", { "lineHeight": "16px", "letterSpacing": "0", "fontWeight": "500" }],
+                        "body-base": ["14px", { "lineHeight": "20px", "letterSpacing": "0", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .pulse-crit { animation: pulse-crit 2s infinite; }
+        @keyframes pulse-crit {
+            0% { border-color: rgba(255, 92, 92, 0.4); }
+            50% { border-color: rgba(255, 92, 92, 1); }
+            100% { border-color: rgba(255, 92, 92, 0.4); }
+        }
+        
+        /* Custom scrollbar for dense data tables if needed */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #121316; }
+        ::-webkit-scrollbar-thumb { background: #343538; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #404751; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-base overflow-hidden flex flex-col h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface border-b border-border-hairline fixed top-0 w-full z-50 flex justify-between items-center px-4 md:px-margin-desktop h-16">
+<div class="flex items-center gap-6">
+<div class="font-display-lg text-[24px] md:text-display-lg font-black text-primary tracking-tighter">CampusGuard</div>
+<nav class="hidden md:flex gap-6 h-full items-center ml-4">
+<a class="text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm hover:bg-surface-variant/50 transition-colors h-full flex items-center px-2 cursor-pointer active:scale-95" href="#">Dashboard</a>
+<a class="text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm hover:bg-surface-variant/50 transition-colors h-full flex items-center px-2 cursor-pointer active:scale-95" href="#">Simulate</a>
+<a class="text-secondary border-b-2 border-secondary pb-1 font-headline-sm text-headline-sm h-full flex items-center px-2 cursor-pointer active:scale-95" href="#">Govern</a>
+<a class="text-on-surface-variant hover:text-on-surface font-headline-sm text-headline-sm hover:bg-surface-variant/50 transition-colors h-full flex items-center px-2 cursor-pointer active:scale-95" href="#">Verify</a>
+</nav>
+</div>
+<div class="flex items-center gap-4 text-primary dark:text-primary">
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-variant/50 transition-colors p-2 rounded active:scale-95">settings</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-variant/50 transition-colors p-2 rounded active:scale-95">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-variant/50 transition-colors p-2 rounded active:scale-95">account_circle</span>
+</div>
+</header>
+<div class="flex flex-1 pt-16 w-full h-full">
+<!-- SideNavBar -->
+<aside class="bg-surface border-r border-border-hairline fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col py-panel-gap z-40 hidden md:flex justify-between">
+<div>
+<div class="px-4 pb-6">
+<h2 class="font-headline-md text-headline-md text-primary tracking-tight">OPERATIONS</h2>
+<p class="font-label-caps text-label-caps text-text-secondary mt-1">Sector-7 Baseline</p>
+<button class="w-full mt-6 py-2 px-4 bg-surface-variant text-primary border border-border-hairline hover:bg-surface-container-high transition-all font-label-caps text-label-caps rounded cursor-pointer group flex items-center justify-center gap-2">
+                        AUTHORIZE RECOVERY
+                    </button>
+</div>
+<nav class="flex flex-col">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 font-label-caps text-label-caps hover:bg-surface-container-high transition-all cursor-pointer group" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-primary transition-colors">dashboard</span> Command Center
+                    </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 font-label-caps text-label-caps hover:bg-surface-container-high transition-all cursor-pointer group" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-primary transition-colors">analytics</span> Counterfactuals
+                    </a>
+<a class="bg-surface-variant text-secondary border-l-4 border-secondary flex items-center gap-3 px-4 py-3 font-label-caps text-label-caps cursor-pointer group" href="#">
+<span class="material-symbols-outlined text-lg">military_tech</span> Tournament
+                    </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 font-label-caps text-label-caps hover:bg-surface-container-high transition-all cursor-pointer group" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-primary transition-colors">gpp_maybe</span> Safety Gate
+                    </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 font-label-caps text-label-caps hover:bg-surface-container-high transition-all cursor-pointer group" href="#">
+<span class="material-symbols-outlined text-lg group-hover:text-primary transition-colors">fact_check</span> Verification
+                    </a>
+</nav>
+</div>
+<div class="mt-auto border-t border-border-hairline pt-4 flex flex-col">
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 font-label-caps text-label-caps hover:bg-surface-container-high transition-all cursor-pointer group" href="#">
+<span class="material-symbols-outlined text-lg">monitor_heart</span> System Health
+                </a>
+<a class="text-on-surface-variant flex items-center gap-3 px-4 py-3 font-label-caps text-label-caps hover:bg-surface-container-high transition-all cursor-pointer group" href="#">
+<span class="material-symbols-outlined text-lg">history</span> Logs
+                </a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 ml-0 md:ml-64 p-4 md:p-margin-desktop overflow-y-auto bg-background flex flex-col gap-gutter pb-24">
+<!-- Page Header -->
+<header class="flex flex-col gap-1">
+<h1 class="font-display-lg text-display-lg text-text-primary uppercase">RECOVERY PLAN TOURNAMENT</h1>
+<p class="font-body-base text-text-secondary">Compare alternative recovery strategies before committing to one.</p>
+</header>
+<!-- Incident Context Banner -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-surface-elevated border border-border-hairline rounded p-4 flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-text-secondary uppercase">CURRENT INCIDENT</span>
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined">bolt</span>
+<span class="font-code-stat text-code-stat">Power -30%</span>
+</div>
+</div>
+<div class="bg-surface-elevated border border-border-hairline rounded p-4 flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-text-secondary uppercase">MISSIONS AT RISK</span>
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined">warning</span>
+<span class="font-code-stat text-code-stat">2</span>
+</div>
+</div>
+<div class="bg-surface-elevated border border-border-hairline rounded p-4 flex flex-col gap-2">
+<span class="font-label-caps text-label-caps text-text-secondary uppercase">HARD CONSTRAINTS</span>
+<div class="flex items-center gap-2 text-primary">
+<span class="material-symbols-outlined">satellite_alt</span>
+<span class="font-code-stat text-code-stat">Emergency Comm</span>
+</div>
+</div>
+<div class="bg-surface-elevated border pulse-crit rounded p-4 flex flex-col gap-2 bg-error-container/10">
+<span class="font-label-caps text-label-caps text-signal-crit uppercase">CURRENT FEASIBILITY</span>
+<div class="flex items-center gap-2 text-signal-crit">
+<span class="material-symbols-outlined">dangerous</span>
+<span class="font-code-stat text-code-stat">NOT FEASIBLE</span>
+</div>
+</div>
+</section>
+<!-- Central Tournament Zone -->
+<section class="grid grid-cols-1 lg:grid-cols-5 gap-gutter mt-4 items-stretch">
+<!-- PLAN A -->
+<article class="bg-surface border border-border-hairline rounded flex flex-col relative opacity-80 min-h-[400px]">
+<div class="p-4 border-b border-border-hairline bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md text-text-primary">PLAN A</h3>
+<p class="font-label-caps text-label-caps text-text-secondary mt-1">No Intervention</p>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<div class="inline-flex px-2 py-1 bg-error-container/20 border border-signal-crit/30 rounded font-badge-mono text-badge-mono text-signal-crit w-max">
+                            INFEASIBLE
+                        </div>
+<div class="flex flex-col gap-3 font-code-data text-code-data text-on-surface-variant"><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Contracts Satisfied</span><span class="text-signal-crit">1 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Hard Constraints</span><span class="text-signal-crit">0 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Mission Utility</span><span class="text-signal-crit">15%</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Risk Level</span><span class="text-signal-crit">High</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Collateral Deg.</span><span>Low</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Intervention Cost</span><span>0 CR / 0m</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Irrecoverable Loss</span><span class="text-signal-crit">2</span></div><div class="pt-1 text-signal-crit italic mt-auto">Sacrifices: All Mission Utility</div></div>
+</div>
+</article>
+<!-- PLAN B -->
+<article class="bg-surface border border-border-hairline rounded flex flex-col relative opacity-80 min-h-[400px]">
+<div class="p-4 border-b border-border-hairline bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md text-text-primary">PLAN B</h3>
+<p class="font-label-caps text-label-caps text-text-secondary mt-1">Selective Degrade</p>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<div class="inline-flex px-2 py-1 bg-error-container/20 border border-signal-crit/30 rounded font-badge-mono text-badge-mono text-signal-crit w-max">
+                            INFEASIBLE (VIOLATION)
+                        </div>
+<div class="flex flex-col gap-3 font-code-data text-code-data text-on-surface-variant"><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Contracts Satisfied</span><span class="text-signal-crit">2 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Hard Constraints</span><span class="text-signal-crit">2 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Mission Utility</span><span>60%</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Risk Level</span><span class="text-tertiary">Medium</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Collateral Deg.</span><span class="text-tertiary">Medium</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Intervention Cost</span><span>450 CR / 12m</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Irrecoverable Loss</span><span class="text-signal-crit">1</span></div><div class="pt-1 text-tertiary italic mt-auto">Sacrifices: Non-Critical Services</div></div>
+</div>
+</article>
+<!-- PLAN C -->
+<article class="bg-surface border border-border-hairline rounded flex flex-col relative min-h-[400px]">
+<div class="p-4 border-b border-border-hairline bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md text-text-primary">PLAN C</h3>
+<p class="font-label-caps text-label-caps text-text-secondary mt-1">Balanced Protect</p>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<div class="inline-flex px-2 py-1 bg-surface-variant border border-outline rounded font-badge-mono text-badge-mono text-on-surface w-max">
+                            FEASIBLE
+                        </div>
+<div class="flex flex-col gap-3 font-code-data text-code-data text-on-surface-variant"><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Contracts Satisfied</span><span>3 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Hard Constraints</span><span class="text-secondary">3 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Mission Utility</span><span class="text-tertiary">66% (2/3)</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Risk Level</span><span class="text-tertiary">Medium</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Collateral Deg.</span><span>Low</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Intervention Cost</span><span class="text-tertiary">1200 CR / 45m</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Irrecoverable Loss</span><span>0</span></div><div class="pt-1 text-on-surface-variant italic mt-auto">Sacrifices: Response Latency</div></div>
+</div>
+</article>
+<!-- PLAN D -->
+<article class="bg-surface border border-border-hairline rounded flex flex-col relative min-h-[400px]">
+<div class="p-4 border-b border-border-hairline bg-surface-container-low">
+<h3 class="font-headline-md text-headline-md text-text-primary">PLAN D</h3>
+<p class="font-label-caps text-label-caps text-text-secondary mt-1">Aggressive Cont.</p>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<div class="inline-flex px-2 py-1 bg-surface-variant border border-outline rounded font-badge-mono text-badge-mono text-on-surface w-max">
+                            FEASIBLE
+                        </div>
+<div class="flex flex-col gap-3 font-code-data text-code-data text-on-surface-variant"><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Contracts Satisfied</span><span class="text-signal-crit">2 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Hard Constraints</span><span class="text-secondary">3 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Mission Utility</span><span class="text-secondary">100% (3/3)</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Risk Level</span><span class="text-signal-crit">High</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Collateral Deg.</span><span class="text-signal-crit">Extreme</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Intervention Cost</span><span>800 CR / 25m</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Irrecoverable Loss</span><span>0</span></div><div class="pt-1 text-signal-crit italic mt-auto">Sacrifices: Infrastructure Integrity</div></div>
+</div>
+</article>
+<!-- ICO PLAN -->
+<article class="bg-surface border-2 border-secondary rounded flex flex-col relative shadow-[0_0_20px_rgba(66,224,154,0.1)] z-10 min-h-[400px]">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-secondary text-on-secondary px-3 py-1 font-badge-mono text-badge-mono rounded-full flex items-center gap-1 shadow-lg whitespace-nowrap">
+<span class="material-symbols-outlined text-[14px]">emoji_events</span> ICO RECOMMENDED: BEST FEASIBLE STRATEGY
+                    </div>
+<div class="p-4 border-b border-border-hairline bg-secondary/10 mt-2">
+<h3 class="font-headline-md text-headline-md text-secondary">ICO OPTIMIZED</h3>
+<p class="font-label-caps text-label-caps text-text-secondary mt-1">Min-Sacrifice Strategy</p>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4">
+<div class="inline-flex px-2 py-1 bg-secondary/20 border border-secondary/50 rounded font-badge-mono text-badge-mono text-secondary w-max">
+                            FEASIBLE
+                        </div>
+<div class="flex flex-col gap-3 font-code-data text-code-data text-on-surface-variant"><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Contracts Satisfied</span><span class="text-secondary">3 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Hard Constraints</span><span class="text-secondary">3 / 3</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Mission Utility</span><span class="text-secondary">100% (3/3)</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Risk Level</span><span class="text-secondary">Minimal</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Collateral Deg.</span><span>Low</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Intervention Cost</span><span class="text-secondary">520 CR / 14m</span></div><div class="flex justify-between border-b border-border-hairline pb-2"><span class="text-text-secondary uppercase">Irrecoverable Loss</span><span>0</span></div><div class="pt-1 text-secondary italic">Sacrifices: Non-Critical Redundancy</div></div>
+<div class="mt-auto pt-4 border-t border-border-hairline">
+<p class="font-label-caps text-label-caps text-secondary mb-1">WHY ICO WON</p>
+<p class="font-body-base text-[12px] leading-tight text-on-surface-variant">Deterministic bounded search across the defined intervention space. Lowest-cost feasible strategy that preserves all hard continuity constraints while minimizing collateral degradation and intervention risk.</p>
+</div>
+</div>
+</article>
+</section>
+<!-- Bottom Section: Constraints & Details -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-gutter mt-4">
+<!-- Constraint Check -->
+<div class="bg-surface-elevated border border-border-hairline rounded p-6 flex flex-col gap-4">
+<h4 class="font-headline-sm text-headline-sm text-text-primary uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">checklist</span> Hard Constraint Verification
+                    </h4>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between p-3 bg-surface border border-border-hairline rounded">
+<span class="font-code-data text-code-data text-on-surface">Online Exams</span>
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="font-badge-mono text-badge-mono">PROTECTED</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface border border-border-hairline rounded">
+<span class="font-code-data text-code-data text-on-surface">Research Lab (Tier 1)</span>
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="font-badge-mono text-badge-mono">PROTECTED</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 bg-surface border border-border-hairline rounded border-l-4 border-l-primary">
+<span class="font-code-data text-code-data text-primary">Emergency Comm (Critical)</span>
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span class="font-badge-mono text-badge-mono">PROTECTED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- ICO Plan Details -->
+<div class="bg-surface-elevated border border-border-hairline rounded p-6 flex flex-col gap-4 relative overflow-hidden">
+<!-- Subtle background effect -->
+<div class="absolute inset-0 bg-gradient-to-br from-secondary/5 to-transparent pointer-events-none"></div>
+<h4 class="font-headline-sm text-headline-sm text-secondary uppercase flex items-center gap-2 relative z-10">
+<span class="material-symbols-outlined">tune</span> ICO Execution Parameters
+                    </h4>
+<table class="w-full text-left font-code-data text-code-data relative z-10">
+<thead>
+<tr class="text-text-secondary border-b border-border-hairline">
+<th class="pb-2 font-medium">Action Directive</th>
+<th class="pb-2 font-medium text-right">Target Parameter</th>
+</tr>
+</thead>
+<tbody class="text-on-surface-variant">
+<tr class="border-b border-border-hairline/50">
+<td class="py-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">data_usage</span> Analytics Shedding
+                                </td>
+<td class="py-3 text-right">Limit to <span class="text-text-primary">50 TB/s</span></td>
+</tr>
+<tr class="border-b border-border-hairline/50">
+<td class="py-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">memory</span> Compute Throttling
+                                </td>
+<td class="py-3 text-right">Non-critical <span class="text-text-primary">-15% cap</span></td>
+</tr>
+<tr>
+<td class="py-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">wifi_tethering_off</span> Wi-Fi Reduction
+                                </td>
+<td class="py-3 text-right">Guest network <span class="text-text-primary">-80% b/w</span></td>
+</tr>
+</tbody>
+</table>
+<div class="mt-auto pt-4 flex items-center justify-between border-t border-border-hairline relative z-10">
+<span class="font-label-caps text-label-caps text-text-secondary">EXPECTED OUTCOME</span>
+<span class="font-code-stat text-[16px] text-secondary">ALL MISSIONS SAFE</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Fixed Footer Action -->
+<footer class="fixed bottom-0 left-0 md:left-64 right-0 bg-surface-container-highest border-t border-border-hairline py-4 px-4 md:px-margin-desktop flex items-center justify-between z-50">
+<div class="flex flex-col hidden sm:flex">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-text-secondary uppercase">SELECTED STRATEGY:</span>
+<span class="font-headline-sm text-headline-sm text-secondary">ICO — MINIMUM-SACRIFICE STRATEGY</span>
+</div>
+<p class="font-code-data text-code-data text-on-surface-variant mt-1">Expected Result: 3/3 hard continuity constraints satisfied.</p>
+</div>
+<button class="bg-secondary text-on-secondary px-8 py-3 rounded font-headline-sm text-headline-sm hover:bg-secondary-fixed transition-colors active:scale-95 flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(66,224,154,0.3)] w-full sm:w-auto">
+            REVIEW SAFETY <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</footer>
+</body></html>

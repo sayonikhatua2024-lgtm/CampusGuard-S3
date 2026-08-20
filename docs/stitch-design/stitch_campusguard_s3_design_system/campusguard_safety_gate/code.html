@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusGuard - Safety Gate</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "border-hairline": "#232833",
+                        "inverse-surface": "#e3e2e6",
+                        "on-tertiary": "#422d00",
+                        "secondary-fixed-dim": "#42e09a",
+                        "on-tertiary-fixed": "#271900",
+                        "secondary-fixed": "#65fdb5",
+                        "secondary": "#42e09a",
+                        "on-error": "#690005",
+                        "surface-container-low": "#1b1b1f",
+                        "on-secondary-fixed-variant": "#005233",
+                        "outline": "#8a919d",
+                        "on-tertiary-container": "#503700",
+                        "tertiary-fixed": "#ffdea8",
+                        "text-secondary": "#4a5262",
+                        "on-surface-variant": "#c0c7d3",
+                        "surface-variant": "#343538",
+                        "on-primary-fixed-variant": "#004880",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "signal-crit": "#ff5c5c",
+                        "secondary-container": "#00c07e",
+                        "tertiary": "#f9bc45",
+                        "on-primary": "#00325a",
+                        "tertiary-container": "#d49c25",
+                        "surface-tint": "#a1c9ff",
+                        "on-secondary": "#003822",
+                        "surface": "#121316",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#343538",
+                        "inverse-on-surface": "#2f3034",
+                        "surface-container": "#12151c",
+                        "surface-container-high": "#292a2d",
+                        "on-primary-container": "#003d6c",
+                        "surface-container-lowest": "#0d0e11",
+                        "on-primary-fixed": "#001c37",
+                        "on-secondary-fixed": "#002112",
+                        "surface-elevated": "#0d0f14",
+                        "outline-variant": "#404751",
+                        "surface-dim": "#121316",
+                        "text-muted": "#333a48",
+                        "tertiary-fixed-dim": "#f9bc45",
+                        "inverse-primary": "#0060a7",
+                        "primary-fixed": "#d2e4ff",
+                        "background": "#121316",
+                        "primary-container": "#5aa9ff",
+                        "on-surface": "#e3e2e6",
+                        "surface-bright": "#38393d",
+                        "on-secondary-container": "#00472c",
+                        "on-error-container": "#ffdad6",
+                        "text-primary": "#ffffff",
+                        "primary-fixed-dim": "#a1c9ff",
+                        "on-background": "#e3e2e6",
+                        "primary": "#a1c9ff",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "24px",
+                        "panel-gap": "12px",
+                        "container-padding": "20px",
+                        "gutter": "16px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "code-stat": ["JetBrains Mono"],
+                        "body-base": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "code-data": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "badge-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "code-stat": ["24px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "body-base": ["14px", { "lineHeight": "20px", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "code-data": ["12px", { "lineHeight": "16px", "letterSpacing": "0", "fontWeight": "500" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "badge-mono": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-surface'); }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        
+        /* Thin scrollbar for dense UI */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: theme('colors.surface-variant'); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.outline'); }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden text-body-base font-body-base bg-background selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="bg-surface-dim dark:bg-surface-dim w-full h-16 border-b border-border-hairline flex items-center justify-between px-margin-desktop shrink-0 z-50">
+<div class="flex items-center gap-6 h-full">
+<span class="font-headline-md text-headline-md font-bold tracking-tighter text-primary dark:text-primary">CONTINUITY COMMAND</span>
+<nav class="hidden md:flex h-full ml-8 gap-1">
+<a class="h-full flex items-center px-4 text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Dashboard</a>
+<a class="h-full flex items-center px-4 text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Simulate</a>
+<a class="h-full flex items-center px-4 text-primary border-b-2 border-primary pb-1 hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Govern</a>
+<a class="h-full flex items-center px-4 text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:opacity-80" href="#">Verify</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface-container-high border border-border-hairline rounded-DEFAULT py-1.5 pl-9 pr-3 text-body-base text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" placeholder="Search parameters..." type="text"/>
+</div>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-surface-variant text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT hover:bg-surface-variant text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[20px]" data-icon="settings">settings</span></button>
+<div class="w-8 h-8 rounded-DEFAULT bg-surface-variant border border-border-hairline overflow-hidden ml-2 shrink-0">
+<img alt="Administrator Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD1ip_Yz1OypjqkuxCoVd0qDe61-xsgdj3QGqqRyTLfk-_Ogt_MAJFHYPBATnUbyntFq3mAO1-fHoM1aST4NX45qYFOyJHARMNTO8nCNGhvxdmPepXT9iyOGukg5kRG8PMkhPmiwx77-gZ3n0x2HWR3hwsYfQoV_2IYiCC-eAvLOTeISla2eLQdYty4qqlCAZ1oNeeSWi4GlEbmI6DTA3z_rAkjyslZsoqeT3RveP3UNjCkL9ZJh8mTOA"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-lowest dark:bg-surface-container-lowest h-full w-[280px] flex flex-col border-r border-border-hairline shrink-0 py-6 hidden lg:flex">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded-DEFAULT bg-surface-variant border border-border-hairline flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-[18px]">memory</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">OPERATIONS</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant opacity-70">Campus Node Alpha</span>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-1 px-3">
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-200 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="grid_view">grid_view</span> Command Center
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-200 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="analytics">analytics</span> Counterfactuals
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-200 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="military_tech">military_tech</span> Tournament
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container border-l-4 border-secondary rounded-r-DEFAULT transition-all duration-200 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="gpp_maybe">gpp_maybe</span> Safety Gate
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-200 ease-in-out font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="fact_check">fact_check</span> Verification
+                </a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full py-2 bg-surface-variant hover:bg-surface-container-high border border-border-hairline rounded-DEFAULT font-label-caps text-label-caps text-on-surface transition-colors mb-4">AUTHORIZE RECOVERY</button>
+<div class="flex gap-2 justify-center border-t border-border-hairline pt-4">
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-DEFAULT transition-colors"><span class="material-symbols-outlined text-[18px]" data-icon="help">help</span></button>
+<button class="p-2 text-on-surface-variant hover:bg-surface-variant rounded-DEFAULT transition-colors"><span class="material-symbols-outlined text-[18px]" data-icon="terminal">terminal</span></button>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col h-full bg-background overflow-hidden relative">
+<!-- Global Context Bar -->
+<div class="h-12 bg-surface-elevated border-b border-border-hairline flex items-center px-6 shrink-0 justify-between">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-text-secondary">INCIDENT</span>
+<span class="font-code-data text-code-data text-signal-crit bg-signal-crit/10 px-2 py-0.5 rounded-sm border border-signal-crit/20">PWR -30%</span>
+</div>
+<div class="w-px h-4 bg-border-hairline"></div>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-text-secondary">STRATEGY</span>
+<span class="font-code-data text-code-data text-secondary">ICO - MINIMUM-SACRIFICE</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+<span class="font-code-data text-code-data text-on-surface-variant">3/3 CONTRACTS</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px] text-secondary">shield</span>
+<span class="font-code-data text-code-data text-on-surface-variant">3/3 CONSTRAINTS</span>
+</div>
+</div>
+</div>
+<!-- Scrollable Content Canvas -->
+<div class="flex-1 overflow-y-auto p-margin-desktop">
+<div class="max-w-[1400px] mx-auto">
+<header class="mb-8">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-1">GOVERNED ACTION</h1>
+<p class="font-body-base text-body-base text-on-surface-variant opacity-80">CampusGuard recommends. A human authorizes.</p>
+</header>
+<!-- 3 Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Context & State (Col 1-3) -->
+<div class="lg:col-span-3 flex flex-col gap-panel-gap">
+<!-- Telemetry Trust -->
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-4">
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-3 flex items-center justify-between">
+                                    TELEMETRY TRUST
+                                    <span class="material-symbols-outlined text-[14px] text-primary">radar</span>
+</h3>
+<div class="mb-4">
+<div class="font-code-data text-code-data text-primary mb-1">OBSERVABILITY: HIGH CONFIDENCE</div>
+<div class="h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[98%]"></div>
+</div>
+</div>
+<ul class="space-y-2 font-code-data text-code-data text-on-surface-variant">
+<li class="flex justify-between items-center"><span class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">check</span>Network</span> <span>99.9%</span></li>
+<li class="flex justify-between items-center"><span class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">check</span>Application</span> <span>98.5%</span></li>
+<li class="flex justify-between items-center"><span class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">check</span>Power</span> <span>100%</span></li>
+<li class="flex justify-between items-center"><span class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">check</span>HVAC</span> <span>97.2%</span></li>
+</ul>
+</div>
+<!-- State Binding -->
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-4">
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                                    STATE-BOUND APPROVAL
+                                </h3>
+<div class="font-body-base text-body-base text-on-surface mb-3">APPROVAL BOUND TO CURRENT STATE</div>
+<ul class="space-y-2 font-code-data text-code-data text-on-surface-variant mb-4">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">lock</span>Plan Hash Verified</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">lock</span>Intervention Parameters</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">lock</span>Active Contracts</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">lock</span>Infrastructure State</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[14px] text-secondary">lock</span>Telemetry Context</li>
+</ul>
+<div class="bg-tertiary-container/10 border border-tertiary-container/30 p-2 rounded-sm flex items-start gap-2">
+<span class="material-symbols-outlined text-tertiary text-[14px] mt-0.5">warning</span>
+<span class="font-label-caps text-label-caps text-tertiary">If state changes before execution: APPROVAL INVALIDATED</span>
+</div>
+</div>
+</div>
+<!-- Center Column: Decision Canvas (Col 4-8) -->
+<div class="lg:col-span-5 flex flex-col gap-panel-gap">
+<!-- Dominant Decision Panel -->
+<div class="bg-surface-container-high border-2 border-tertiary/50 rounded-DEFAULT p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/10 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2"></div>
+<div class="flex items-center justify-between mb-6 border-b border-border-hairline pb-4 relative z-10">
+<h2 class="font-headline-md text-headline-md font-bold text-tertiary flex items-center gap-2">
+<span class="material-symbols-outlined fill text-[24px]">gavel</span>
+                                        APPROVAL REQUIRED
+                                    </h2>
+<span class="font-badge-mono text-badge-mono bg-tertiary/20 text-tertiary px-2 py-1 rounded-sm border border-tertiary/30">GATE_ID: SG-8892A</span>
+</div>
+<div class="grid grid-cols-3 gap-4 mb-6 relative z-10">
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps text-text-secondary">RISK</span>
+<span class="font-code-stat text-code-stat text-signal-crit">HIGH</span>
+</div>
+<div class="flex flex-col gap-1 border-l border-border-hairline pl-4">
+<span class="font-label-caps text-label-caps text-text-secondary">TELEMETRY</span>
+<span class="font-code-stat text-code-stat text-primary">HIGH</span>
+</div>
+<div class="flex flex-col gap-1 border-l border-border-hairline pl-4">
+<span class="font-label-caps text-label-caps text-text-secondary">REVERSIBLE</span>
+<span class="font-code-stat text-code-stat text-secondary">YES</span>
+</div>
+</div>
+<div class="bg-surface-elevated border border-border-hairline rounded-sm p-4 relative z-10">
+<div class="font-body-base text-body-base text-on-surface mb-1">SAFETY DECISION</div>
+<div class="font-headline-sm text-headline-sm text-on-surface">SAFE TO PROCEED AFTER HUMAN APPROVAL</div>
+</div>
+</div>
+<!-- Why Approval Required -->
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-4">
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">policy</span>
+                                    DETERMINISTIC POLICY TRIGGERS
+                                </h3>
+<ul class="space-y-2 font-code-data text-code-data text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="text-tertiary mt-0.5">•</span>
+<span>Modifies core network QoS for &gt; 2000 connected nodes.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-tertiary mt-0.5">•</span>
+<span>Throttles active research compute clusters in Science Park.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-tertiary mt-0.5">•</span>
+<span>Affects institutional mission resources (Exam servers).</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-tertiary mt-0.5">•</span>
+<span>Action is reversible but defined as HIGH IMPACT per SLA-09.</span>
+</li>
+</ul>
+</div>
+<!-- Human Auth Block -->
+<div class="bg-surface-container border border-outline/30 rounded-DEFAULT p-6 shadow-lg">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 border-b border-border-hairline pb-2">HUMAN AUTHORIZATION</h3>
+<div class="space-y-4">
+<div>
+<label class="block font-label-caps text-label-caps text-text-secondary mb-1">APPROVER IDENTITY</label>
+<input class="w-full bg-surface-dim border border-border-hairline rounded-sm px-3 py-2 font-code-data text-code-data text-on-surface opacity-70" disabled="" type="text" value="Administrator [AUTH_TOKEN_VALID]"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-text-secondary mb-1">JUSTIFICATION (REQUIRED)</label>
+<textarea class="w-full bg-surface-container-high border border-outline/50 rounded-sm px-3 py-2 font-body-base text-body-base text-on-surface focus:border-secondary focus:ring-1 focus:ring-secondary focus:outline-none transition-colors" placeholder="Enter reason for overriding standard thresholds or confirming emergency action..." rows="3"></textarea>
+</div>
+<div class="flex gap-3 pt-2">
+<button class="flex-1 bg-secondary text-on-secondary font-code-data text-code-data font-bold py-3 rounded-sm flex items-center justify-center gap-2 hover:bg-secondary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+                                            APPROVE RECOVERY
+                                        </button>
+<button class="px-6 border border-signal-crit text-signal-crit hover:bg-signal-crit/10 font-code-data text-code-data font-bold py-3 rounded-sm flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">block</span>
+                                            REJECT
+                                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Actions & Contracts (Col 9-12) -->
+<div class="lg:col-span-4 flex flex-col gap-panel-gap">
+<!-- Action Breakdown -->
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-4 flex-1">
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-3 flex items-center justify-between border-b border-border-hairline pb-2">
+                                    ACTION BREAKDOWN
+                                    <span class="font-badge-mono text-badge-mono bg-surface-variant px-2 py-0.5 rounded-sm">4 TASKS</span>
+</h3>
+<div class="space-y-3">
+<!-- Action Item -->
+<div class="border border-border-hairline bg-background p-3 rounded-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-data text-code-data text-on-surface">Background Analytics</span>
+<span class="font-badge-mono text-badge-mono text-outline">90% SHED</span>
+</div>
+<div class="flex gap-2 font-badge-mono text-badge-mono">
+<span class="bg-surface-variant px-1.5 py-0.5 rounded-sm text-on-surface-variant">RISK: LOW</span>
+<span class="bg-secondary/10 border border-secondary/20 text-secondary px-1.5 py-0.5 rounded-sm">REVERSIBLE</span>
+</div>
+</div>
+<!-- Action Item -->
+<div class="border border-signal-crit/30 bg-signal-crit/5 p-3 rounded-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-data text-code-data text-on-surface">Student Wi-Fi</span>
+<span class="font-badge-mono text-badge-mono text-signal-crit">60% REDUCTION</span>
+</div>
+<div class="flex gap-2 font-badge-mono text-badge-mono">
+<span class="bg-signal-crit/10 border border-signal-crit/20 text-signal-crit px-1.5 py-0.5 rounded-sm">RISK: HIGH</span>
+<span class="bg-secondary/10 border border-secondary/20 text-secondary px-1.5 py-0.5 rounded-sm">REVERSIBLE</span>
+</div>
+</div>
+<!-- Action Item -->
+<div class="border border-signal-crit/30 bg-signal-crit/5 p-3 rounded-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-data text-code-data text-on-surface">Exam QoS</span>
+<span class="font-badge-mono text-badge-mono text-signal-crit">80% SHIFT</span>
+</div>
+<div class="flex gap-2 font-badge-mono text-badge-mono">
+<span class="bg-signal-crit/10 border border-signal-crit/20 text-signal-crit px-1.5 py-0.5 rounded-sm">RISK: HIGH</span>
+<span class="bg-secondary/10 border border-secondary/20 text-secondary px-1.5 py-0.5 rounded-sm">REVERSIBLE</span>
+</div>
+</div>
+<!-- Action Item -->
+<div class="border border-signal-crit/30 bg-signal-crit/5 p-3 rounded-sm">
+<div class="flex justify-between items-start mb-2">
+<span class="font-code-data text-code-data text-on-surface">Research Compute</span>
+<span class="font-badge-mono text-badge-mono text-signal-crit">28% REDUCTION</span>
+</div>
+<div class="flex gap-2 font-badge-mono text-badge-mono">
+<span class="bg-signal-crit/10 border border-signal-crit/20 text-signal-crit px-1.5 py-0.5 rounded-sm">RISK: HIGH</span>
+<span class="bg-secondary/10 border border-secondary/20 text-secondary px-1.5 py-0.5 rounded-sm">REVERSIBLE</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Contract Protection -->
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-4">
+<h3 class="font-label-caps text-label-caps text-text-secondary mb-3 flex items-center justify-between">
+                                    CONTRACT PROTECTION
+                                    <span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+</h3>
+<ul class="space-y-3 font-code-data text-code-data text-on-surface-variant">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">check_circle</span>
+<div>
+<div class="text-on-surface">Online Examination Protected</div>
+<div class="font-badge-mono text-badge-mono text-text-secondary">HARD CONSTRAINT</div>
+</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">check_circle</span>
+<div>
+<div class="text-on-surface">Research Laboratory Protected</div>
+<div class="font-badge-mono text-badge-mono text-text-secondary">HARD CONSTRAINT</div>
+</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">check_circle</span>
+<div>
+<div class="text-on-surface">Emergency Comm Protected</div>
+<div class="font-badge-mono text-badge-mono text-text-secondary">FORBIDDEN ACTIONS RESPECTED</div>
+</div>
+</li>
+</ul>
+</div>
+<!-- Security Governance Subtext -->
+<div class="flex flex-wrap gap-2 pt-2">
+<span class="font-badge-mono text-badge-mono px-2 py-1 bg-surface-variant border border-border-hairline rounded-sm text-text-secondary flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full bg-secondary"></div> Backend Gate Active</span>
+<span class="font-badge-mono text-badge-mono px-2 py-1 bg-surface-variant border border-border-hairline rounded-sm text-text-secondary flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full bg-secondary"></div> Forbidden Blocked</span>
+<span class="font-badge-mono text-badge-mono px-2 py-1 bg-surface-variant border border-border-hairline rounded-sm text-text-secondary flex items-center gap-1"><div class="w-1.5 h-1.5 rounded-full bg-secondary"></div> Audit Active</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Bottom Action Bar -->
+<div class="h-16 bg-surface-container-high border-t border-border-hairline flex items-center justify-between px-margin-desktop shrink-0 relative z-40 shadow-[0_-8px_24px_rgba(0,0,0,0.5)]">
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-secondary">SELECTED STRATEGY</span>
+<span class="font-code-data text-code-data text-on-surface">ICO - MINIMUM-SACRIFICE</span>
+</div>
+<div class="w-px h-8 bg-border-hairline mx-2"></div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-text-secondary">GATE STATUS</span>
+<span class="font-code-data text-code-data text-tertiary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">pending</span>
+                            APPROVAL REQUIRED
+                        </span>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 border border-signal-crit text-signal-crit hover:bg-signal-crit/10 font-label-caps text-label-caps rounded-sm transition-colors">REJECT</button>
+<button class="px-6 py-2 bg-secondary text-on-secondary hover:bg-secondary-fixed font-label-caps text-label-caps font-bold rounded-sm shadow-[0_0_12px_rgba(66,224,154,0.3)] transition-all">APPROVE RECOVERY</button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>WHAT IF? | Counterfactual Playground</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#121316",
+                      "surface-container": "#1f1f23",
+                      "secondary-fixed-dim": "#42e09a",
+                      "inverse-surface": "#e3e2e6",
+                      "on-primary-fixed-variant": "#004880",
+                      "on-surface-variant": "#c0c7d3",
+                      "error": "#ffb4ab",
+                      "on-secondary-fixed": "#002112",
+                      "on-secondary-container": "#00472c",
+                      "tertiary": "#f9bc45",
+                      "on-tertiary-container": "#503700",
+                      "primary-container": "#5aa9ff",
+                      "tertiary-fixed-dim": "#f9bc45",
+                      "surface-container-lowest": "#0d0e11",
+                      "on-error": "#690005",
+                      "text-muted": "#333a48",
+                      "surface-dim": "#121316",
+                      "on-tertiary-fixed-variant": "#5e4200",
+                      "outline-variant": "#404751",
+                      "on-background": "#e3e2e6",
+                      "border-hairline": "#232833",
+                      "text-primary": "#ffffff",
+                      "on-secondary": "#003822",
+                      "surface-container-high": "#292a2d",
+                      "on-primary-fixed": "#001c37",
+                      "secondary-container": "#00c07e",
+                      "on-primary": "#00325a",
+                      "outline": "#8a919d",
+                      "inverse-on-surface": "#2f3034",
+                      "inverse-primary": "#0060a7",
+                      "text-secondary": "#4a5262",
+                      "tertiary-fixed": "#ffdea8",
+                      "on-secondary-fixed-variant": "#005233",
+                      "on-error-container": "#ffdad6",
+                      "primary-fixed": "#d2e4ff",
+                      "surface-bright": "#38393d",
+                      "primary": "#a1c9ff",
+                      "on-tertiary-fixed": "#271900",
+                      "on-surface": "#e3e2e6",
+                      "surface-variant": "#343538",
+                      "on-tertiary": "#422d00",
+                      "secondary": "#42e09a",
+                      "surface-tint": "#a1c9ff",
+                      "error-container": "#93000a",
+                      "surface-elevated": "#0d0f14",
+                      "primary-fixed-dim": "#a1c9ff",
+                      "secondary-fixed": "#65fdb5",
+                      "on-primary-container": "#003d6c",
+                      "signal-crit": "#ff5c5c",
+                      "surface-container-highest": "#343538",
+                      "surface": "#121316",
+                      "tertiary-container": "#d49c25",
+                      "surface-container-low": "#1b1b1f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "container-padding": "20px",
+                      "panel-gap": "12px",
+                      "gutter": "16px",
+                      "margin-desktop": "24px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "headline-sm": ["Inter", "sans-serif"],
+                      "body-base": ["Inter", "sans-serif"],
+                      "code-stat": ["JetBrains Mono", "monospace"],
+                      "code-data": ["JetBrains Mono", "monospace"],
+                      "badge-mono": ["JetBrains Mono", "monospace"],
+                      "label-caps": ["Inter", "sans-serif"],
+                      "headline-md": ["Inter", "sans-serif"],
+                      "display-lg": ["Inter", "sans-serif"]
+              },
+              "fontSize": {
+                      "headline-sm": ["16px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "body-base": ["14px", {"lineHeight": "20px", "letterSpacing": "0", "fontWeight": "400"}],
+                      "code-stat": ["24px", {"lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "code-data": ["12px", {"lineHeight": "16px", "letterSpacing": "0", "fontWeight": "500"}],
+                      "badge-mono": ["10px", {"lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                      "label-caps": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-md": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for dense panels */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.background');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant');
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+        
+        /* Slider styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: theme('colors.primary');
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(161, 201, 255, 0.5);
+            transition: transform 0.1s;
+        }
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: theme('colors.surface-variant');
+            border-radius: 2px;
+        }
+        
+        .pulse-border-warning {
+            animation: pulse-warning 2s infinite;
+        }
+        @keyframes pulse-warning {
+            0% { border-color: rgba(249, 188, 69, 0.3); }
+            50% { border-color: rgba(249, 188, 69, 0.8); }
+            100% { border-color: rgba(249, 188, 69, 0.3); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-base overflow-hidden h-screen flex flex-col selection:bg-primary/30">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop h-16 bg-background dark:bg-background border-b border-outline-variant bg-background/80 backdrop-blur-md">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-extrabold text-primary tracking-tighter">CONTINUITY COMMAND</span>
+<div class="hidden md:flex gap-6 items-center ml-8">
+<div class="text-on-surface-variant font-headline-sm text-headline-sm font-bold cursor-pointer hover:text-primary transition-colors duration-200">Dashboard</div>
+<div class="text-primary border-b-2 border-primary pb-1 font-headline-sm text-headline-sm font-bold cursor-pointer hover:text-primary transition-colors duration-200">Simulate</div>
+<div class="text-on-surface-variant font-headline-sm text-headline-sm font-bold cursor-pointer hover:text-primary transition-colors duration-200">Govern</div>
+<div class="text-on-surface-variant font-headline-sm text-headline-sm font-bold cursor-pointer hover:text-primary transition-colors duration-200">Verify</div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
+<input class="bg-surface-elevated border border-border-hairline rounded-DEFAULT pl-9 pr-3 py-1.5 text-code-data font-code-data text-on-surface focus:outline-none focus:border-primary w-64" placeholder="Search telemetry..." type="text"/>
+</div>
+<button class="bg-primary/10 border border-primary text-primary font-badge-mono text-badge-mono px-3 py-1.5 rounded-DEFAULT hover:bg-primary/20 transition-colors uppercase tracking-widest flex items-center gap-2">
+<span class="material-symbols-outlined text-[14px]">shield</span>
+                SYSTEM SECURE
+            </button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex flex-1 pt-16 h-full overflow-hidden">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 bottom-0 flex flex-col pt-panel-gap bg-surface-container-lowest dark:bg-surface-container-lowest h-full w-[280px] border-r border-outline-variant z-40 hidden md:flex">
+<div class="px-6 mb-8 flex flex-col gap-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-border-hairline flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A futuristic minimalist avatar profile image in deep blues and cyan, corporate command center style, high tech, abstract." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDPgnNLTnScOua5Ep2xZapXKsk4GuPKcdoSvXPu4Z08QGnZXCFU4S8VcVLHmsNni8ixbuJ9wHuRqFPyPY6txyoDpTsGh7bupLjX_gJ7zaO-K_QQHrIMRpmnQO1Xlajy7ngioITNm0EHcpBAMXBlB7Mf8QPa1C2CgcPEu3nbIz_5zBmnpDqWDp8x7D7z__fv5PeLP27WmlNWH-uX2VOxb_sG29j1XLzH_TPr_ey_KWC29mDaGgexNXiO_A"/>
+</div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface">MISSION CONTROL</div>
+<div class="font-code-data text-code-data text-on-surface-variant">Sector 7-G Admin</div>
+</div>
+</div>
+</div>
+<div class="flex-1 flex flex-col gap-2 px-3">
+<div class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[18px]">dashboard</span> Command Center
+                </div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT bg-secondary-container/10 text-secondary border-r-2 border-secondary hover:bg-surface-variant/50 hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[18px]">science</span> Counterfactuals
+                </div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[18px]">military_tech</span> Tournament
+                </div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[18px]">gpp_maybe</span> Safety Gate
+                </div>
+<div class="flex items-center gap-3 px-3 py-2 rounded-DEFAULT text-on-surface-variant hover:bg-surface-variant/50 hover:text-on-surface transition-all cursor-pointer font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[18px]">fact_check</span> Verification
+                </div>
+</div>
+<div class="px-6 py-4 mt-auto border-t border-border-hairline">
+<button class="w-full border border-signal-crit/50 text-signal-crit bg-signal-crit/10 hover:bg-signal-crit/20 font-badge-mono text-badge-mono py-2 rounded-DEFAULT transition-colors flex items-center justify-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[14px]">warning</span> AUTHORIZE OVERRIDE
+                </button>
+<div class="flex gap-4">
+<div class="text-on-surface-variant hover:text-on-surface cursor-pointer flex items-center gap-1 font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">settings</span> Settings
+                    </div>
+<div class="text-on-surface-variant hover:text-on-surface cursor-pointer flex items-center gap-1 font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">help_center</span> Support
+                    </div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas (3-Zone Layout) -->
+<main class="ml-0 md:ml-[280px] flex-1 grid grid-cols-1 lg:grid-cols-[300px_1fr_360px] gap-panel-gap p-margin-desktop h-full overflow-y-auto">
+<!-- LEFT PANEL: CURRENT STATE -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center gap-2 border-b border-border-hairline pb-2">
+<span class="material-symbols-outlined text-outline">history</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">CURRENT STATE</h2>
+</div>
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-4 flex flex-col gap-3">
+<div class="font-label-caps text-label-caps text-outline uppercase tracking-wider mb-1">Infrastructure Telemetry</div>
+<div class="flex justify-between items-end border-b border-border-hairline/50 pb-2">
+<div>
+<div class="font-code-data text-code-data text-on-surface-variant">Power</div>
+<div class="font-code-stat text-code-stat text-tertiary">70%</div>
+</div>
+<div class="bg-tertiary/10 text-tertiary border border-tertiary/30 px-2 py-0.5 rounded-DEFAULT font-badge-mono text-badge-mono">DEGRADED</div>
+</div>
+<div class="flex justify-between items-end border-b border-border-hairline/50 pb-2">
+<div>
+<div class="font-code-data text-code-data text-on-surface-variant">Network</div>
+<div class="font-code-stat text-code-stat text-tertiary">85%</div>
+</div>
+<div class="bg-tertiary/10 text-tertiary border border-tertiary/30 px-2 py-0.5 rounded-DEFAULT font-badge-mono text-badge-mono">STRESSED</div>
+</div>
+<div class="flex justify-between items-end">
+<div>
+<div class="font-code-data text-code-data text-on-surface-variant">HVAC</div>
+<div class="font-code-stat text-code-stat text-secondary">65%</div>
+</div>
+<div class="bg-secondary/10 text-secondary border border-secondary/30 px-2 py-0.5 rounded-DEFAULT font-badge-mono text-badge-mono">NOMINAL</div>
+</div>
+</div>
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-4 flex flex-col gap-3 flex-1 overflow-y-auto">
+<div class="font-label-caps text-label-caps text-outline uppercase tracking-wider mb-1">Active Missions</div>
+<div class="border border-tertiary/30 bg-tertiary/5 rounded-DEFAULT p-3 pulse-border-warning">
+<div class="flex justify-between items-start mb-2">
+<div class="font-body-base text-on-surface font-semibold">Online Examination</div>
+<div class="bg-tertiary text-on-tertiary px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px] uppercase">AT RISK</div>
+</div>
+<div class="font-code-data text-code-data text-on-surface-variant flex justify-between">
+<span>Contract:</span> <span class="text-tertiary">SLA-99.9</span>
+</div>
+<div class="font-code-data text-code-data text-on-surface-variant flex justify-between">
+<span>Margin:</span> <span class="text-signal-crit">-2.4%</span>
+</div>
+</div>
+<div class="border border-border-hairline bg-surface rounded-DEFAULT p-3">
+<div class="flex justify-between items-start mb-2">
+<div class="font-body-base text-on-surface font-semibold">Research Laboratory</div>
+<div class="bg-secondary text-on-secondary px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px] uppercase">SAFE</div>
+</div>
+<div class="font-code-data text-code-data text-on-surface-variant flex justify-between">
+<span>Contract:</span> <span>SLA-99.5</span>
+</div>
+<div class="font-code-data text-code-data text-on-surface-variant flex justify-between">
+<span>Margin:</span> <span class="text-secondary">+4.1%</span>
+</div>
+</div>
+<div class="border border-border-hairline bg-surface rounded-DEFAULT p-3">
+<div class="flex justify-between items-start mb-2">
+<div class="font-body-base text-on-surface font-semibold leading-tight">Emergency Communication</div>
+<div class="bg-primary-container text-on-primary-container border border-primary/30 px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px] uppercase whitespace-nowrap ml-2">HARD CONSTRAINT</div>
+</div>
+<div class="font-code-data text-code-data text-on-surface-variant flex justify-between">
+<span>Contract:</span> <span>CRIT-0</span>
+</div>
+<div class="font-code-data text-code-data text-on-surface-variant flex justify-between">
+<span>Margin:</span> <span class="text-secondary">+18.0%</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CENTER PANEL: WHAT IF? CONTROLS -->
+<section class="flex flex-col gap-4 border-l border-r border-border-hairline px-gutter">
+<div class="flex justify-between items-center border-b border-border-hairline pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">route</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">WHAT IF?</h2>
+</div>
+<div class="bg-primary/10 border border-primary/30 text-primary font-badge-mono text-badge-mono px-2 py-1 rounded-DEFAULT">SAFE COUNTERFACTUAL SIMULATION | NOT LIVE EXECUTION</div>
+</div>
+<p class="font-body-base text-on-surface-variant mb-2">Explore safe alternative futures before touching the real system. Adjust shedding parameters below to observe projected outcomes.</p>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto pr-2 pb-10">
+<!-- Slider 1 -->
+<div class="bg-surface-elevated border border-border-hairline p-4 rounded-DEFAULT relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex justify-between items-end mb-4">
+<div>
+<label class="font-headline-sm text-headline-sm text-on-surface block mb-1">Student Wi-Fi Reduction</label>
+<div class="font-code-data text-code-data text-outline">Curr: 20% | Range: 0-100%</div>
+</div>
+<div class="font-code-stat text-code-stat text-primary" id="val1">80%</div>
+</div>
+<div class="relative w-full h-8 flex items-center">
+<input class="w-full absolute z-10" max="100" min="0" oninput="document.getElementById('val1').innerText = this.value + '%'" type="range" value="80"/>
+<!-- Custom Track Background visual -->
+<div class="absolute w-full h-1 bg-surface-variant rounded-full pointer-events-none">
+<div class="h-full bg-primary rounded-l-full" style="width: 80%;"></div>
+</div>
+</div>
+<div class="flex justify-between font-badge-mono text-badge-mono text-outline mt-2">
+<span>MIN</span>
+<span>MAX</span>
+</div>
+</div>
+<!-- Slider 2 -->
+<div class="bg-surface-elevated border border-border-hairline p-4 rounded-DEFAULT relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant"></div>
+<div class="flex justify-between items-end mb-4">
+<div>
+<label class="font-headline-sm text-headline-sm text-on-surface block mb-1">Analytics Shedding</label>
+<div class="font-code-data text-code-data text-outline">Curr: 0 TB/s | Range: 0-50 TB/s</div>
+</div>
+<div class="font-code-stat text-code-stat text-on-surface" id="val2">25 TB/s</div>
+</div>
+<div class="relative w-full h-8 flex items-center">
+<input class="w-full absolute z-10" max="50" min="0" oninput="document.getElementById('val2').innerText = this.value + ' TB/s'" type="range" value="25"/>
+<div class="absolute w-full h-1 bg-surface-variant rounded-full pointer-events-none">
+<div class="h-full bg-outline rounded-l-full" style="width: 50%;"></div>
+</div>
+</div>
+</div>
+<!-- Slider 3 -->
+<div class="bg-surface-elevated border border-border-hairline p-4 rounded-DEFAULT relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant"></div>
+<div class="flex justify-between items-end mb-4">
+<div>
+<label class="font-headline-sm text-headline-sm text-on-surface block mb-1">Exam Traffic Shift (DC1-&gt;DC2)</label>
+<div class="font-code-data text-code-data text-outline">Curr: 0% | Range: 0-100%</div>
+</div>
+<div class="font-code-stat text-code-stat text-on-surface" id="val3">45%</div>
+</div>
+<div class="relative w-full h-8 flex items-center">
+<input class="w-full absolute z-10" max="100" min="0" oninput="document.getElementById('val3').innerText = this.value + '%'" type="range" value="45"/>
+<div class="absolute w-full h-1 bg-surface-variant rounded-full pointer-events-none">
+<div class="h-full bg-outline rounded-l-full" style="width: 45%;"></div>
+</div>
+</div>
+</div>
+<!-- Slider 4 -->
+<div class="bg-surface-elevated border border-border-hairline p-4 rounded-DEFAULT relative overflow-hidden group hover:border-primary/50 transition-colors">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant"></div>
+<div class="flex justify-between items-end mb-4">
+<div>
+<label class="font-headline-sm text-headline-sm text-on-surface block mb-1">Research Compute Reduction</label>
+<div class="font-code-data text-code-data text-outline">Curr: 5% | Range: 0-30%</div>
+</div>
+<div class="font-code-stat text-code-stat text-on-surface" id="val4">15%</div>
+</div>
+<div class="relative w-full h-8 flex items-center">
+<input class="w-full absolute z-10" max="30" min="0" oninput="document.getElementById('val4').innerText = this.value + '%'" type="range" value="15"/>
+<div class="absolute w-full h-1 bg-surface-variant rounded-full pointer-events-none">
+<div class="h-full bg-outline rounded-l-full" style="width: 50%;"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT PANEL: PROJECTED OUTCOME -->
+<section class="flex flex-col gap-4 relative">
+<div class="flex items-center gap-2 border-b border-border-hairline pb-2">
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">CURRENT vs PROJECTED</h2>
+</div>
+<div class="flex-1 flex flex-col gap-4 overflow-y-auto pb-20">
+<!-- Telemetry Comparison -->
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-3 text-center">
+<div class="font-code-data text-code-data text-outline mb-1">Power</div>
+<div class="flex items-center justify-center gap-2">
+<span class="font-code-stat text-[16px] text-tertiary line-through opacity-70">70%</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_forward</span>
+<span class="font-code-stat text-[20px] text-secondary">78%</span>
+</div>
+</div>
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-3 text-center">
+<div class="font-code-data text-code-data text-outline mb-1">Network</div>
+<div class="flex items-center justify-center gap-2">
+<span class="font-code-stat text-[16px] text-tertiary line-through opacity-70">85%</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_forward</span>
+<span class="font-code-stat text-[20px] text-signal-crit">94%</span>
+</div>
+</div>
+<div class="bg-surface-elevated border border-border-hairline rounded-DEFAULT p-3 text-center">
+<div class="font-code-data text-code-data text-outline mb-1">HVAC</div>
+<div class="flex items-center justify-center gap-2">
+<span class="font-code-stat text-[16px] text-secondary opacity-70">65%</span>
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant">arrow_forward</span>
+<span class="font-code-stat text-[20px] text-secondary">65%</span>
+</div>
+</div>
+</div>
+<!-- Mission Outcomes -->
+<div class="bg-surface-elevated border border-secondary/30 rounded-DEFAULT p-4 flex flex-col gap-3 relative overflow-hidden">
+<!-- Subtle background glow for 'winning' state -->
+<div class="absolute -right-10 -top-10 w-32 h-32 bg-secondary/10 blur-2xl rounded-full"></div>
+<div class="font-label-caps text-label-caps text-outline uppercase tracking-wider mb-1 flex items-center justify-between">
+                            Mission Outcomes Comparison
+                            <span class="material-symbols-outlined text-secondary text-[16px]">check_circle</span>
+</div>
+<div class="border-b border-border-hairline/50 pb-3">
+<div class="font-body-base text-on-surface font-semibold mb-1">Online Examination</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="bg-tertiary/20 text-tertiary px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px]">AT RISK</span>
+<span class="material-symbols-outlined text-[14px] text-outline">arrow_forward</span>
+<span class="bg-secondary text-on-secondary px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px]">SAFE</span>
+</div>
+<div class="font-code-data text-code-data text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> Margin: +12%
+                                </div>
+</div>
+</div>
+<div class="border-b border-border-hairline/50 pb-3">
+<div class="font-body-base text-on-surface font-semibold mb-1">Research Laboratory</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="bg-secondary/20 text-secondary px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px]">SAFE</span>
+<span class="material-symbols-outlined text-[14px] text-outline">arrow_forward</span>
+<span class="bg-secondary text-on-secondary px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px]">SAFE</span>
+</div>
+<div class="font-code-data text-code-data text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> Margin: +5%
+                                </div>
+</div>
+</div>
+<div>
+<div class="font-body-base text-on-surface font-semibold mb-1">Emergency Communication</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="bg-secondary/20 text-secondary px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px]">SAFE</span>
+<span class="material-symbols-outlined text-[14px] text-outline">arrow_forward</span>
+<span class="bg-secondary text-on-secondary px-1.5 py-0.5 rounded-sm font-badge-mono text-[9px]">SAFE</span>
+</div>
+<div class="font-code-data text-code-data text-secondary flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> Margin: +15%
+                                </div>
+</div>
+</div>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface border border-border-hairline p-3 rounded-DEFAULT">
+<div class="font-code-data text-code-data text-outline mb-1">Mission Utility</div>
+<div class="font-code-stat text-code-stat text-on-surface">92%</div>
+</div>
+<div class="bg-surface border border-border-hairline p-3 rounded-DEFAULT">
+<div class="font-code-data text-code-data text-outline mb-1">Collateral Deg.</div>
+<div class="font-code-stat text-code-stat text-secondary">Low</div>
+</div>
+<div class="bg-surface border border-border-hairline p-3 rounded-DEFAULT">
+<div class="font-code-data text-code-data text-outline mb-1">Risk Level</div>
+<div class="font-code-stat text-code-stat text-secondary">Minimal</div>
+</div>
+<div class="bg-surface border border-border-hairline p-3 rounded-DEFAULT">
+<div class="font-code-data text-code-data text-outline mb-1">Feasibility</div>
+<div class="font-code-stat text-code-stat text-primary">High</div>
+</div>
+</div>
+</div>
+<!-- Footer Action Area -->
+<div class="absolute bottom-0 left-0 w-full bg-background border-t border-border-hairline pt-4 pb-2">
+<div class="flex items-center justify-between bg-secondary/10 border border-secondary/30 rounded-DEFAULT p-3 mb-3">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">verified</span>
+<span class="font-label-caps text-label-caps text-secondary uppercase tracking-wider">Projection Result: Feasible</span>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary font-badge-mono text-badge-mono py-3 rounded-DEFAULT hover:bg-primary/90 transition-colors uppercase tracking-widest flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(161,201,255,0.2)]">
+                        SEND TO SAFETY GATE <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</section>
+</main>
+</div>
+</body></html>
