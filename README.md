@@ -1,181 +1,101 @@
-# SentryCore — Self-Healing AI Operations Controller
+# CAMPUSGUARD
+## Institutional Continuity Command Center
 
-A **software-only** AI-powered self-healing controller for a simulated college
-campus's digital infrastructure (servers, databases, APIs, network, CCTV, IoT,
-cloud apps). It continuously monitors software-generated telemetry, detects
-anomalies with machine learning, diagnoses probable root causes, decides on
-and executes a recovery action, verifies the outcome, and escalates to a
-human administrator when automated recovery fails — all visible on a live
-React dashboard.
+CampusGuard does not optimize uptime alone. It optimizes institutional continuity when everything cannot be preserved.
 
-No physical infrastructure is touched. Every "server" and "failure" is
-simulated in-process; recovery actions manipulate that simulation exactly the
-way a real action (`docker restart`, connection-pool reset, failover) would
-affect real infrastructure.
+**LIVE DEMO:** [PENDING DEPLOYMENT]
+**SOURCE:** [sayonikhatua2024-lgtm/CampusGuard-S3](https://github.com/sayonikhatua2024-lgtm/CampusGuard-S3)
 
-## Architecture
+---
 
-```
-Telemetry Simulator  →  Anomaly Detection (Isolation Forest)  →  Root Cause Analysis
-        │                                                              │
-        │                                                              ▼
-        │                                                    AI Decision Engine
-        │                                                              │
-        │                                                              ▼
-        └──────────────────────────────────────────────────  Recovery Executor
-                                                                        │
-                                                                        ▼
-                                                              Verification
-                                                               │        │
-                                                        healthy│        │still failing
-                                                               ▼        ▼
-                                                          Resolved   Retry → Escalate
-```
+## 1. Problem
+Modern campus cyber-physical infrastructure assumes 100% availability. But when catastrophic power grid failure, coordinated network attacks, or extreme HVAC collapse occurs, standard systems fail blindly—shutting down mission-critical research and active online examinations alongside non-essential background tasks indiscriminately.
 
-All of this runs inside `app/engine/orchestrator.py`, ticking every
-`MONITOR_INTERVAL_SECONDS` (default 3s) via APScheduler, and every step is
-persisted to MySQL (`services`, `metrics`, `incidents`, `alerts` tables) so
-the dashboard can show live state and full incident history.
+## 2. Why Existing AIOps Is Insufficient
+Traditional AIOps asks: *"What service is down?"*
+**CampusGuard asks:** *"What institutional obligation is at risk, what can be sacrificed, what must never be sacrificed, and what is the safest feasible recovery?"*
 
-## Stack
+## 3. Solution
+CampusGuard is a Self-Healing AI Operations Controller designed specifically for institutional and mission-critical environments. It acts as an autonomous deterministic governor that shifts power, computation, and network constraints selectively to protect defined continuity contracts.
 
-- **Backend:** Python, FastAPI, SQLAlchemy, MySQL 8, APScheduler
-- **AI/ML:** scikit-learn (Isolation Forest) for anomaly detection, a rule-based
-  policy table for recovery decisions (deterministic and auditable — safety
-  property: the recovery *action* is never chosen by an LLM, only optionally
-  explained by one)
-- **Frontend:** React (Vite), Tailwind CSS, Recharts
-- **Infra simulation:** an in-process Python telemetry generator with 8
-  injectable failure types
-- **Deployment:** Docker + Docker Compose
+## 4. Core Innovation
+CampusGuard utilizes bounded deterministic search to construct intervention profiles dynamically mapped to institutional continuity contracts. Rather than raw failovers, CampusGuard guarantees SLA bounds via constrained mathematical optimization, maintaining safe operational telemetry restrictions.
 
-## Quick start (Docker Compose)
+## 5. Same Failure ≠ Same Optimal Response
+CampusGuard's signature philosophy: Infrastructure states do not define the response. **Context defines the response.** A 30% power drop during an active online exam yields a radically different optimization plan than the exact same failure occurring during an empty campus emergency.
 
-```bash
-docker compose up --build
-```
+## 6. Architecture
+- **SENSE:** Active telemetry ingestion tracking infrastructure bounds.
+- **UNDERSTAND:** RCA and propagation analysis mapped to dependent missions.
+- **ASSESS:** Institutional Continuity Contracts evaluated for SLA margin risk.
+- **COUNTERFACT:** Safe forward projections evaluating hypothetical interventions without mutation.
+- **OPTIMIZE:** Bounded determinism (Institutional Continuity Optimizer) fetching the lowest collateral cost intervention.
+- **GOVERN:** State-bound human approval enforcement.
+- **ACT:** Controlled isolated intervention simulation payload dispatch.
+- **VERIFY:** Explicit post-action validation of predicted margins.
+- **REPLAY:** Forensic provenance event reconstruction.
 
-- Backend API: http://localhost:8000 (docs at `/docs`)
-- Frontend dashboard: http://localhost:5173
-- MySQL: localhost:3307 (user `healer` / password `healerpass`, db `self_healing_ops`)
+## 7. Signature Differentiators
+1. Same Failure ≠ Same Optimal Response
+2. Continuity Contracts
+3. Institutional Continuity Optimizer (ICO)
+4. State-Bound Approval
+5. Less Evidence → Less Autonomy
+6. Contract-Level Verification
+7. Decision Replay / Provenance
+8. Contract-Aware Greedy Baseline
+9. Context-Switch Benchmark
+10. Controlled Simulated Execution
 
-The backend auto-creates its tables and seeds 8 demo services on startup —
-no manual migration step needed for this prototype.
+## 8. Screen Gallery
+The prototype commands 10 fully implemented functional screens:
+1. **Command Center:** Real-time SLA analysis and telemetry tracking.
+2. **Continuity Conflict:** Capacity modeling vs contract demands.
+3. **Counterfactual Playground:** Non-mutating forward projection simulation.
+4. **Recovery Tournament:** Fair algorithmic benchmarking and sacrifice comparison.
+5. **Safety Gate:** State-bound human governance authorization.
+6. **Controlled Execution:** Interventions and deterministic rollback validation.
+7. **Recovery Verification:** Explicit post-action matrix validation.
+8. **Degraded Telemetry:** Observability boundaries locking autonomous scope.
+9. **Decision Replay:** Forensic provenance logging.
+10. **Optimization Benchmark:** Methodological engine evaluation.
 
-### Login
+## 9. Technology Stack
+- **Backend:** Python, FastAPI, SQLAlchemy, APScheduler
+- **Algorithm:** Deterministic Search, IsolationForest (scikit-learn)
+- **Frontend:** React, TailwindCSS, Vite
+- **Infrastructure:** Docker, MySQL
 
-The dashboard is behind a login screen. Default demo credentials:
+## 10. Repository Structure
+- `/backend`: Headless FastAPI engine, models, optimization bounds, and endpoints.
+- `/frontend`: Monolithic React interface mapped cleanly via internal routing loops.
+- `/docs`: Technical ideathon submissions and UI specifications.
+- `/tests`: Isolated Pytest integrations natively ensuring schema boundaries without dependencies.
 
-```
-username: admin
-password: admin123
-```
+## 11. Local Setup
+See docs/PUBLIC_DEMO.md for manual backend execution commands.
+Create a `.env` file from the supplied `.env.example` templates prior to starting components.
 
-Change these via the `ADMIN_USERNAME` / `ADMIN_PASSWORD` environment
-variables in `docker-compose.yml` (or `backend/.env`), and set a real
-`JWT_SECRET_KEY` before deploying anywhere beyond your own machine.
-Authentication is a single seeded admin account issuing a JWT (8-hour expiry
-by default) — every `/api/dashboard`, `/api/incidents`, `/api/alerts`, and
-`/api/simulator` route requires a valid token; only `/api/auth/login` and
-`/api/health` are public.
+## 12. Docker Setup
+Run `docker compose up --build -d`
+*(Note: Current development verification tests via Docker are limited natively by local OS kernel overlayfs issues. Code structure operates efficiently standalone and in properly hosted Docker daemons.)*
 
-## Running locally without Docker
+## 13. Public Deployment
+Reference `docs/PUBLIC_DEMO.md` for Railway platform deployment parameters bridging the GitHub repo configuration dynamically.
 
-**Backend** (needs a running MySQL instance — update `backend/.env` or export
-the `MYSQL_*` vars to point at it):
+## 14. Testing
+Run the isolated automated test suite natively protecting schema bounds:
+Run `PYTHONPATH=./backend python -m pytest backend/tests/ -v`
 
-```bash
-cd backend
-cp .env.example .env
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
+## 15. Security Note & Limitations
+This is a competition prototype using controlled simulated campus infrastructure. Do not connect the public demo to real campus actuators. Execution is strictly bound inside simulated parameters to preserve environment boundaries. Benchmark results are deterministic prototype scenarios.
 
-**Frontend:**
-
-```bash
-cd frontend
-cp .env.example .env
-npm install
-npm run dev
-```
-
-## Using the failure simulator
-
-From the dashboard's "Failure simulator" panel (or `POST /api/simulator/inject`
-with `{"service_name": "...", "failure_type": "..."}`), inject one of:
-
-`cpu_spike`, `memory_exhaustion`, `api_failure`, `db_connection_failure`,
-`network_latency`, `service_crash`, `high_error_rate`, `container_failure`
-
-Within a couple of monitor ticks you'll see: an anomaly flagged on the
-service's metrics → an incident opened with a root cause and AI-chosen
-recovery action → the action executed → verification → either **Resolved**
-(with a recorded recovery time) or, after `MAX_RECOVERY_ATTEMPTS` failed
-attempts, **Escalated** to the admin dashboard with a critical alert.
-
-## Manual override
-
-Any active incident can be manually resolved, retried, or escalated from the
-dashboard's incident detail panel (`POST /api/incidents/override`), matching
-the brief's requirement for administrator override controls.
-
-## Key API endpoints
-
-| Endpoint | Purpose |
-|---|---|
-| `POST /api/auth/login` | Log in with username/password, returns a JWT |
-| `GET /api/dashboard/services` | Current status of every service (auth required) |
-| `GET /api/dashboard/services/{id}/metrics` | Recent telemetry for charts |
-| `GET /api/dashboard/stats` | Health %, recovery success rate, avg recovery time |
-| `GET /api/incidents` | Incident history (filterable by `status`) |
-| `GET /api/alerts` | Live alert/notification stream |
-| `POST /api/incidents/override` | Manual override (resolve/retry/escalate) |
-| `POST /api/simulator/inject` | Inject a synthetic failure |
-
-## Notes on the AI decision engine
-
-The decision engine uses a deterministic, auditable rule table mapping each
-diagnosed failure type to a safe recovery action and a confidence score, with
-an escalating fallback strategy (switch to backup) if the first attempt
-fails. This is deliberate: automated infrastructure recovery should be
-reproducible and explainable, not a black box. If `ANTHROPIC_API_KEY` is set
-in the backend environment, the engine additionally asks Claude to phrase the
-operator-facing explanation shown on the incident card — purely a
-presentation layer over a decision that was already made deterministically.
-
-## Project structure
-
-```
-self-healing-controller/
-├── backend/
-│   ├── app/
-│   │   ├── main.py              # FastAPI app + scheduler wiring
-│   │   ├── config.py            # env-driven settings (MySQL, tuning)
-│   │   ├── database.py          # SQLAlchemy engine/session
-│   │   ├── models.py            # Service, Metric, Incident, Alert
-│   │   ├── schemas.py           # Pydantic response models
-│   │   ├── auth_config.py       # JWT secret, admin credentials
-│   │   ├── auth.py              # password check, JWT issue/verify
-│   │   ├── telemetry/simulator.py
-│   │   ├── ml/anomaly_detector.py
-│   │   ├── engine/
-│   │   │   ├── root_cause.py
-│   │   │   ├── decision_engine.py
-│   │   │   ├── recovery_actions.py
-│   │   │   ├── verifier.py
-│   │   │   └── orchestrator.py
-│   │   └── api/routes_auth.py, routes_dashboard.py, routes_incidents.py, routes_simulator.py
-│   ├── requirements.txt
-│   └── Dockerfile
-├── frontend/
-│   ├── src/
-│   │   ├── App.jsx
-│   │   ├── api.js
-│   │   ├── auth.jsx             # login state, JWT storage
-│   │   └── components/          # includes Login.jsx
-│   ├── package.json
-│   └── Dockerfile
-└── docker-compose.yml
-```
+## 16. Future Roadmap
+- **FUTURE / POST-SUBMISSION:**
+  - Continuity Constitution / Policy Compiler
+  - Confidence-Aware Optimization
+  - Alternate-Path Replay
+  - Formal Verification
+  - Institutional Trade-off Ledger
+  - Recovery Budget
+  - Game Days

@@ -22,3 +22,7 @@ mysql_data/
 
 .env.*
 !.env.example
+*.sqlite
+*.sqlite3
+.vscode/
+.idea/

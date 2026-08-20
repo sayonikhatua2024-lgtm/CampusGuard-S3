@@ -21,3 +21,6 @@ ANOMALY_HISTORY_WINDOW = int(os.getenv("ANOMALY_HISTORY_WINDOW", "200"))
 
 # Recovery
 MAX_RECOVERY_ATTEMPTS = int(os.getenv("MAX_RECOVERY_ATTEMPTS", "2"))
+
+# CORS Deployment Control
+CORS_ALLOW_ORIGINS = os.getenv("CORS_ALLOW_ORIGINS", "http://localhost:5173,http://localhost:4173").split(",")

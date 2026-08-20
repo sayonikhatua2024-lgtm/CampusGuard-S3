@@ -1,21 +1,19 @@
-version: "3.9"
-
 services:
   mysql:
     image: mysql:8.0
     container_name: shc-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: rootpass
-      MYSQL_DATABASE: self_healing_ops
-      MYSQL_USER: healer
-      MYSQL_PASSWORD: healerpass
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_DATABASE: ${MYSQL_DB:-self_healing_ops}
+      MYSQL_USER: ${MYSQL_USER:-healer}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-healerpass}
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "healer", "-phealerpass"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "${MYSQL_USER:-healer}", "-p${MYSQL_PASSWORD:-healerpass}"]
       interval: 5s
       timeout: 5s
       retries: 20
@@ -25,19 +23,20 @@ services:
     container_name: shc-backend
     restart: unless-stopped
     environment:
-      MYSQL_USER: healer
-      MYSQL_PASSWORD: healerpass
-      MYSQL_HOST: mysql
-      MYSQL_PORT: 3306
-      MYSQL_DB: self_healing_ops
-      MONITOR_INTERVAL_SECONDS: 3
-      JWT_SECRET_KEY: change-this-secret-in-production
-      ADMIN_USERNAME: admin
-      ADMIN_PASSWORD: admin123
+      MYSQL_USER: ${MYSQL_USER:-healer}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-healerpass}
+      MYSQL_HOST: ${MYSQL_HOST:-mysql}
+      MYSQL_PORT: ${MYSQL_PORT:-3306}
+      MYSQL_DB: ${MYSQL_DB:-self_healing_ops}
+      MONITOR_INTERVAL_SECONDS: ${MONITOR_INTERVAL_SECONDS:-3}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-change-this-secret-in-production}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin123}
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS:-http://localhost:5173,http://localhost:4173}
       # Optional: set to enable LLM-authored incident explanations
-      # ANTHROPIC_API_KEY: sk-ant-...
+      # ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
     ports:
-      - "8000:8000"
+      - "${PORT:-8000}:8000"
     depends_on:
       mysql:
         condition: service_healthy
@@ -47,7 +46,7 @@ services:
     container_name: shc-frontend
     restart: unless-stopped
     environment:
-      VITE_API_BASE_URL: http://localhost:8000
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-http://localhost:8000}
     ports:
       - "5173:80"
     depends_on:

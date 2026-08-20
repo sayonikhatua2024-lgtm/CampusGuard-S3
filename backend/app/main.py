@@ -6,7 +6,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 from sqlalchemy import text
 from app.database import Base, engine
-from app.config import MONITOR_INTERVAL_SECONDS
+from app.config import MONITOR_INTERVAL_SECONDS, CORS_ALLOW_ORIGINS
 from app.engine.orchestrator import orchestrator
 from app.api import (
     routes_dashboard,
@@ -19,11 +19,11 @@ from app.api import (
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("self-healing-controller")
 
-app = FastAPI(title="Self-Healing AI Operations Controller", version="1.0.0")
+app = FastAPI(title="CampusGuard Institutional Continuity Command Center", version="4.2.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=CORS_ALLOW_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -81,3 +81,11 @@ def _safe_tick():
 @app.get("/api/health")
 def health():
     return {"status": "ok"}
+
+@app.get("/api/health")
+def health_check():
+    return {
+        "status": "ok",
+        "service": "CampusGuard",
+        "version": "4.2.0"
+    }
