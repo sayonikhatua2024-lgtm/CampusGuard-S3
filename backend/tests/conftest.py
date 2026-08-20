@@ -12,9 +12,6 @@ os.environ["DATABASE_URL"] = "sqlite:///:memory:"
 import app.config as config_module
 config_module.DATABASE_URL = "sqlite:///:memory:"
 
-# Replace pymysql explicitly
-import sys
-sys.modules['pymysql'] = None
 
 # Create the engine specifically forcing sqlite to allow multiple threads and using StaticPool
 # to ensure the in-memory database persists across multiple connections (vital for background threads in FastAPI)
@@ -39,13 +36,9 @@ from app.engine.orchestrator import orchestrator
 def setup_test_db():
     Base.metadata.create_all(bind=engine)
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore")
-        # Run startup to execute specific schema modifications
-        try:
-            on_startup()
-        except Exception as e:
-            pass
+    # Run application startup logic transparently. If SQLite cannot process
+    # production migrations natively, this will explicitly fail without masking it.
+    on_startup()
 
     # Seed db explicitly via the orchestrator method normally called in run()
     db = TestingSessionLocal()
