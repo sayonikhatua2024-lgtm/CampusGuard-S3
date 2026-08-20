@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CampusGuard - Verification</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#690005",
+                        "surface-elevated": "#0d0f14",
+                        "on-surface": "#e3e2e6",
+                        "text-secondary": "#4a5262",
+                        "signal-crit": "#ff5c5c",
+                        "error-container": "#93000a",
+                        "surface-container": "#12151c",
+                        "on-primary-fixed-variant": "#004880",
+                        "outline-variant": "#404751",
+                        "on-primary-container": "#003d6c",
+                        "background": "#121316",
+                        "surface-dim": "#121316",
+                        "on-error-container": "#ffdad6",
+                        "on-tertiary": "#422d00",
+                        "tertiary": "#f9bc45",
+                        "border-hairline": "#232833",
+                        "primary-fixed": "#d2e4ff",
+                        "surface-container-high": "#292a2d",
+                        "inverse-on-surface": "#2f3034",
+                        "surface-container-highest": "#343538",
+                        "secondary": "#42e09a",
+                        "inverse-primary": "#0060a7",
+                        "surface": "#121316",
+                        "on-secondary-container": "#00472c",
+                        "text-muted": "#333a48",
+                        "secondary-fixed": "#65fdb5",
+                        "on-tertiary-container": "#503700",
+                        "outline": "#8a919d",
+                        "primary-fixed-dim": "#a1c9ff",
+                        "surface-bright": "#38393d",
+                        "error": "#ffb4ab",
+                        "on-secondary-fixed": "#002112",
+                        "on-primary": "#00325a",
+                        "on-secondary-fixed-variant": "#005233",
+                        "surface-container-low": "#1b1b1f",
+                        "on-background": "#e3e2e6",
+                        "on-primary-fixed": "#001c37",
+                        "secondary-fixed-dim": "#42e09a",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "on-tertiary-fixed": "#271900",
+                        "on-secondary": "#003822",
+                        "on-surface-variant": "#c0c7d3",
+                        "inverse-surface": "#e3e2e6",
+                        "tertiary-container": "#d49c25",
+                        "text-primary": "#ffffff",
+                        "secondary-container": "#00c07e",
+                        "primary": "#a1c9ff",
+                        "surface-variant": "#343538",
+                        "tertiary-fixed-dim": "#f9bc45",
+                        "tertiary-fixed": "#ffdea8",
+                        "primary-container": "#5aa9ff",
+                        "surface-container-lowest": "#0d0e11",
+                        "surface-tint": "#a1c9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-desktop": "24px",
+                        "container-padding": "20px",
+                        "unit": "4px",
+                        "panel-gap": "12px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "code-stat": ["JetBrains Mono"],
+                        "display-lg": ["Inter"],
+                        "body-base": ["Inter"],
+                        "badge-mono": ["JetBrains Mono"],
+                        "headline-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "code-data": ["JetBrains Mono"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "code-stat": ["24px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+                        "body-base": ["14px", { "lineHeight": "20px", "letterSpacing": "0", "fontWeight": "400" }],
+                        "badge-mono": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "code-data": ["12px", { "lineHeight": "16px", "letterSpacing": "0", "fontWeight": "500" }],
+                        "label-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .glass-panel { background: rgba(13, 15, 20, 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid theme('colors.border-hairline'); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-base overflow-x-hidden bg-background">
+<!-- TopNavBar -->
+<nav class="bg-surface-dim border-b border-border-hairline flex justify-between items-center w-full px-margin-desktop h-16 z-50 fixed top-0 left-0 right-0">
+<div class="flex items-center gap-8 h-full">
+<span class="font-display-lg text-display-lg font-extrabold tracking-tight text-primary">CampusGuard</span>
+<div class="hidden md:flex h-full items-end gap-6 pb-1">
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 pb-1" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 pb-1" href="#">Simulate</a>
+<a class="text-on-surface-variant font-medium hover:text-primary-container transition-colors duration-200 pb-1" href="#">Govern</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1 opacity-80 scale-95 transition-all" href="#">Verify</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary-container transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container border border-border-hairline overflow-hidden flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" data-icon="person">person</span>
+</div>
+</div>
+</nav>
+<div class="flex flex-1 pt-16 h-[calc(100vh-64px)] overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-surface-container border-r border-border-hairline w-64 h-full flex flex-col z-40 shrink-0">
+<div class="p-6 border-b border-border-hairline flex items-center gap-4">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="shield_person">shield_person</span>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Operator Alpha</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Institutional Continuity</p>
+</div>
+</div>
+<nav class="flex-1 py-4 flex flex-col gap-1">
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-variant text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label-caps text-label-caps">Command Center</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-variant text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="science">science</span>
+<span class="font-label-caps text-label-caps">Counterfactuals</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-variant text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="emoji_events">emoji_events</span>
+<span class="font-label-caps text-label-caps">Tournament</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 hover:bg-surface-variant text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="gpp_maybe">gpp_maybe</span>
+<span class="font-label-caps text-label-caps">Safety Gate</span>
+</a>
+<a class="flex items-center gap-3 bg-primary-container/10 text-primary border-r-4 border-primary px-4 py-3 translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check" style="font-variation-settings: 'FILL' 1;">fact_check</span>
+<span class="font-label-caps text-label-caps font-bold">Verification</span>
+</a>
+</nav>
+<div class="p-4">
+<button class="w-full py-2 bg-transparent border border-outline-variant text-primary font-badge-mono text-badge-mono hover:bg-surface-variant transition-colors opacity-50 cursor-not-allowed uppercase">Authorize Recovery</button>
+</div>
+<div class="mt-auto border-t border-border-hairline p-4 flex flex-col gap-2">
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="monitor_heart">monitor_heart</span>
+<span class="font-label-caps text-label-caps">System Health</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="terminal">terminal</span>
+<span class="font-label-caps text-label-caps">Logs</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto p-margin-desktop flex flex-col gap-panel-gap bg-background">
+<header class="mb-4">
+<h1 class="font-display-lg text-display-lg text-on-surface uppercase">Recovery Verification</h1>
+<p class="font-body-base text-text-secondary mt-1">Prove that the approved recovery preserved the institution's critical obligations.</p>
+</header>
+<!-- Top Summary Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-panel-gap">
+<div class="glass-panel p-4 rounded-DEFAULT flex flex-col gap-2 bg-surface-container">
+<span class="font-label-caps text-label-caps text-text-secondary uppercase">Incident</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="warning">warning</span>
+<span class="font-code-data text-code-data text-tertiary">Power -30%</span>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-DEFAULT flex flex-col gap-2 bg-surface-container">
+<span class="font-label-caps text-label-caps text-text-secondary uppercase">Executed Plan</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="account_tree">account_tree</span>
+<span class="font-code-data text-code-data text-on-surface">ICO — Minimum-Sacrifice Strategy</span>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-DEFAULT flex flex-col gap-2 bg-surface-container">
+<span class="font-label-caps text-label-caps text-text-secondary uppercase">Execution</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="play_circle">play_circle</span>
+<span class="font-code-data text-code-data text-on-surface-variant">CONTROLLED SIMULATION</span>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-DEFAULT flex flex-col gap-2 border-secondary/30 bg-secondary/10">
+<span class="font-label-caps text-label-caps text-text-secondary uppercase">Approval</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary" data-icon="verified">verified</span>
+<span class="font-code-data text-code-data text-secondary">VALID</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-panel-gap">
+<!-- Proof Table -->
+<div class="lg:col-span-2 glass-panel rounded-DEFAULT overflow-hidden flex flex-col bg-surface-container">
+<div class="p-4 border-b border-border-hairline bg-surface-container-high/50 flex justify-between items-center">
+<h3 class="font-headline-sm text-headline-sm text-on-surface uppercase">SLA Verification Matrix</h3>
+<span class="font-badge-mono text-badge-mono text-secondary border border-secondary/30 px-2 py-1 rounded bg-secondary/10">MATCHED</span>
+</div>
+<div class="overflow-x-auto flex-1 p-0">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-lowest/50 border-b border-border-hairline font-label-caps text-label-caps text-text-secondary">
+<th class="p-3 font-medium uppercase tracking-wider">Metric</th>
+<th class="p-3 font-medium uppercase tracking-wider">Required SLA</th>
+<th class="p-3 font-medium uppercase tracking-wider">Before</th>
+<th class="p-3 font-medium uppercase tracking-wider">Predicted</th>
+<th class="p-3 font-medium uppercase tracking-wider">After</th>
+<th class="p-3 font-medium uppercase tracking-wider">Final Margin</th>
+<th class="p-3 font-medium uppercase tracking-wider text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-code-data text-code-data text-on-surface divide-y divide-border-hairline">
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="p-3 font-body-base text-body-base text-on-surface">Authentication</td>
+<td class="p-3 text-text-secondary">99%</td>
+<td class="p-3 text-signal-crit">85%</td>
+<td class="p-3 text-on-surface-variant">99%</td>
+<td class="p-3 text-secondary">99%</td>
+<td class="p-3 text-secondary">+0%</td>
+<td class="p-3 text-right"><span class="text-secondary flex items-center justify-end gap-1"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> SAFE</span></td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors bg-surface-container/20">
+<td class="p-3 font-body-base text-body-base text-on-surface">Exam Portal</td>
+<td class="p-3 text-text-secondary">90%</td>
+<td class="p-3 text-signal-crit">85%</td>
+<td class="p-3 text-on-surface-variant">97%</td>
+<td class="p-3 text-secondary">97%</td>
+<td class="p-3 text-secondary">+7%</td>
+<td class="p-3 text-right"><span class="text-secondary flex items-center justify-end gap-1"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> SAFE</span></td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="p-3 font-body-base text-body-base text-on-surface">Research Compute</td>
+<td class="p-3 text-text-secondary">70%</td>
+<td class="p-3 text-on-surface-variant">70%</td>
+<td class="p-3 text-on-surface-variant">74%</td>
+<td class="p-3 text-secondary">74%</td>
+<td class="p-3 text-secondary">+4%</td>
+<td class="p-3 text-right"><span class="text-secondary flex items-center justify-end gap-1"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> SAFE</span></td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors bg-surface-container/20">
+<td class="p-3 font-body-base text-body-base text-on-surface">Environmental Control</td>
+<td class="p-3 text-text-secondary">90%</td>
+<td class="p-3 text-signal-crit">65%</td>
+<td class="p-3 text-on-surface-variant">90%</td>
+<td class="p-3 text-secondary">90%</td>
+<td class="p-3 text-secondary">+0%</td>
+<td class="p-3 text-right"><span class="text-secondary flex items-center justify-end gap-1"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> SAFE</span></td>
+</tr>
+<tr class="hover:bg-surface-container-high/30 transition-colors">
+<td class="p-3 font-body-base text-body-base text-on-surface">Emergency Comm.</td>
+<td class="p-3 text-text-secondary">100%</td>
+<td class="p-3 text-secondary">100%</td>
+<td class="p-3 text-on-surface-variant">100%</td>
+<td class="p-3 text-secondary">100%</td>
+<td class="p-3 text-secondary">+0%</td>
+<td class="p-3 text-right"><span class="text-secondary flex items-center justify-end gap-1"><span class="material-symbols-outlined text-sm" data-icon="check_circle">check_circle</span> SAFE</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="flex flex-col gap-panel-gap">
+<!-- Status Panel -->
+<div class="glass-panel p-6 rounded-DEFAULT border-secondary/40 bg-surface-container flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-secondary text-5xl mb-2" data-icon="task_alt" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+<h2 class="font-headline-md text-headline-md text-secondary uppercase mb-1">Institutional Contracts Verified</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mb-6">All active continuity contracts satisfied.</p>
+<div class="w-full flex flex-col gap-3 font-label-caps text-label-caps text-left">
+<div class="flex items-center justify-between p-2 bg-surface-container-high rounded border border-border-hairline">
+<span class="text-on-surface uppercase">Technical State</span>
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="check">check</span>
+</div>
+<div class="flex items-center justify-between p-2 bg-surface-container-high rounded border border-border-hairline">
+<span class="text-on-surface uppercase">Institutional Continuity</span>
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="check">check</span>
+</div>
+<div class="flex items-center justify-between p-2 bg-surface-container-high rounded border border-border-hairline">
+<span class="text-on-surface uppercase">Hard Constraints</span>
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="check">check</span>
+</div>
+</div>
+</div>
+<!-- Mission Outcome Panel -->
+<div class="glass-panel p-4 rounded-DEFAULT flex flex-col gap-4 bg-surface-container">
+<h3 class="font-label-caps text-label-caps text-text-secondary uppercase border-b border-border-hairline pb-2">Mission Outcome</h3>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<p class="font-label-caps text-label-caps text-text-secondary">Utility</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-code-stat text-code-stat text-on-surface">HIGH</span>
+<span class="material-symbols-outlined text-secondary text-sm" data-icon="arrow_upward">arrow_upward</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-text-secondary">Degradation</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-code-stat text-code-stat text-on-surface">LOW</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-text-secondary">Mission Loss</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-code-stat text-code-stat text-secondary">0</span>
+</div>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-text-secondary">SLA Breaches</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="font-code-stat text-code-stat text-secondary">0</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Institutional Status Blocks -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-panel-gap mt-2">
+<div class="glass-panel p-4 rounded-DEFAULT flex items-center gap-4 border-l-2 border-l-secondary bg-surface-container">
+<span class="material-symbols-outlined text-secondary" data-icon="school">school</span>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface uppercase">Online Examination</p>
+<p class="font-code-data text-code-data text-text-secondary mt-1">CONTRACT SATISFIED (3/3)</p>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-DEFAULT flex items-center gap-4 border-l-2 border-l-secondary bg-surface-container">
+<span class="material-symbols-outlined text-secondary" data-icon="biotech">biotech</span>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface uppercase">Research Laboratory</p>
+<p class="font-code-data text-code-data text-text-secondary mt-1">CONTRACT SATISFIED (3/3)</p>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-DEFAULT flex items-center gap-4 border-l-2 border-l-secondary bg-surface-container">
+<span class="material-symbols-outlined text-secondary" data-icon="cell_tower">cell_tower</span>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface uppercase">Emergency Comm.</p>
+<p class="font-code-data text-code-data text-text-secondary mt-1">HARD CONSTRAINT PROTECTED</p>
+</div>
+</div>
+</div>
+<!-- Provenance Actions -->
+<div class="flex gap-4 mt-2 justify-end">
+<button class="px-4 py-2 bg-transparent border border-outline-variant text-on-surface font-label-caps text-label-caps hover:bg-surface-variant transition-colors flex items-center gap-2 uppercase">
+<span class="material-symbols-outlined text-sm" data-icon="history">history</span> View Decision Provenance
+                 </button>
+<button class="px-4 py-2 bg-transparent border border-outline-variant text-on-surface font-label-caps text-label-caps hover:bg-surface-variant transition-colors flex items-center gap-2 uppercase">
+<span class="material-symbols-outlined text-sm" data-icon="replay">replay</span> View Incident Replay
+                 </button>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-border-hairline flex justify-between items-center w-full px-margin-desktop py-unit h-10 text-[10px] uppercase tracking-widest fixed bottom-0 z-50">
+<span class="font-label-caps text-label-caps text-on-surface">CampusGuard v4.2.0 | Mission-Critical Logic Engine</span>
+<span class="font-badge-mono text-badge-mono text-tertiary">THE RECOVERY IS NOT CONSIDERED SUCCESSFUL UNTIL THE INSTITUTIONAL CONTRACTS ARE VERIFIED.</span>
+<div class="flex gap-4">
+<a class="text-text-secondary hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="text-text-secondary hover:text-on-surface transition-colors" href="#">Operator Manual</a>
+<a class="text-text-secondary hover:text-on-surface transition-colors" href="#">Emergency Protocol</a>
+</div>
+</footer>
+</body></html>

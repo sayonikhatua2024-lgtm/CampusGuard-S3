@@ -7,21 +7,26 @@ html, body, #root {
 }
 
 body {
-  @apply bg-base-950 text-base-500 antialiased;
-  background-image:
-    radial-gradient(circle at 15% 0%, rgba(90,169,255,0.06), transparent 40%),
-    radial-gradient(circle at 85% 20%, rgba(61,220,151,0.05), transparent 45%);
-  background-attachment: fixed;
+  @apply bg-background text-on-surface antialiased font-body-base;
 }
 
-::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #232833; border-radius: 8px; }
-::-webkit-scrollbar-thumb:hover { background: #333a48; }
+::-webkit-scrollbar-thumb { background: #232833; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #343538; }
 
 :focus-visible {
-  outline: 2px solid #5aa9ff;
+  outline: 2px solid theme('colors.primary');
   outline-offset: 2px;
+}
+
+.pulse-crimson {
+    animation: pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse-border {
+    0%, 100% { border-color: rgba(255, 92, 92, 1); }
+    50% { border-color: rgba(255, 92, 92, 0.3); }
 }
 
 @keyframes pulse-dot {
@@ -46,4 +51,5 @@ body {
   .pulse-dot { animation: none; }
   .animate-fade-in { animation: none; }
   .animate-toast-in { animation: none; }
+  .pulse-crimson { animation: none; }
 }

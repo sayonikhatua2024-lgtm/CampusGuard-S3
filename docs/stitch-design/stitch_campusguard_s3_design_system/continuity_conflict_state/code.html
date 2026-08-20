@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CONTINUITY CONFLICT - CampusGuard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;family=JetBrains+Mono:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#001c37",
+                        "secondary-fixed-dim": "#42e09a",
+                        "surface-bright": "#38393d",
+                        "primary-fixed-dim": "#a1c9ff",
+                        "on-primary-container": "#003d6c",
+                        "on-surface": "#e3e2e6",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#00472c",
+                        "secondary": "#42e09a",
+                        "background": "#121316",
+                        "surface-container": "#1f1f23",
+                        "on-surface-variant": "#c0c7d3",
+                        "secondary-container": "#00c07e",
+                        "primary-fixed": "#d2e4ff",
+                        "text-primary": "#ffffff",
+                        "on-tertiary-container": "#503700",
+                        "surface-tint": "#a1c9ff",
+                        "surface": "#121316",
+                        "surface-container-highest": "#343538",
+                        "secondary-fixed": "#65fdb5",
+                        "tertiary-fixed": "#ffdea8",
+                        "on-secondary": "#003822",
+                        "on-tertiary-fixed": "#271900",
+                        "text-secondary": "#4a5262",
+                        "on-secondary-fixed-variant": "#005233",
+                        "inverse-primary": "#0060a7",
+                        "text-muted": "#333a48",
+                        "inverse-on-surface": "#2f3034",
+                        "surface-container-low": "#1b1b1f",
+                        "primary-container": "#5aa9ff",
+                        "surface-elevated": "#0d0f14",
+                        "on-tertiary-fixed-variant": "#5e4200",
+                        "on-primary": "#00325a",
+                        "on-primary-fixed-variant": "#004880",
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#d49c25",
+                        "surface-variant": "#343538",
+                        "tertiary": "#f9bc45",
+                        "tertiary-fixed-dim": "#f9bc45",
+                        "surface-dim": "#121316",
+                        "outline-variant": "#404751",
+                        "on-secondary-fixed": "#002112",
+                        "inverse-surface": "#e3e2e6",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "surface-container-lowest": "#0d0e11",
+                        "on-tertiary": "#422d00",
+                        "border-hairline": "#232833",
+                        "outline": "#8a919d",
+                        "signal-crit": "#ff5c5c",
+                        "surface-container-high": "#292a2d",
+                        "on-background": "#e3e2e6",
+                        "primary": "#a1c9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "unit": "4px",
+                        "container-padding": "20px",
+                        "margin-desktop": "24px",
+                        "gutter": "16px",
+                        "panel-gap": "12px"
+                    },
+                    "fontFamily": {
+                        "code-data": ["JetBrains Mono"],
+                        "badge-mono": ["JetBrains Mono"],
+                        "code-stat": ["JetBrains Mono"],
+                        "headline-md": ["Inter"],
+                        "body-base": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "code-data": ["12px", { "lineHeight": "16px", "letterSpacing": "0", "fontWeight": "500" }],
+                        "badge-mono": ["10px", { "lineHeight": "12px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "code-stat": ["24px", { "lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-base": ["14px", { "lineHeight": "20px", "letterSpacing": "0", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.025em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121316;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #343538;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #404751;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-base antialiased min-h-screen overflow-x-hidden">
+<!-- TopNavBar (Shared Component) -->
+<nav class="bg-surface-container-low dark:bg-surface-container-low fixed top-0 w-full z-50 border-b border-border-hairline dark:border-border-hairline bg-opacity-90 backdrop-blur-md flex justify-between items-center h-16 px-margin-desktop">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">shield</span>
+<div class="font-headline-md text-headline-md font-bold tracking-tighter text-primary dark:text-primary-fixed-dim uppercase">
+                CAMPUSGUARD CONTINUITY
+            </div>
+</div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-headline-sm text-headline-sm" href="#">Command Center</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-headline-sm text-headline-sm opacity-80 duration-150" href="#">Counterfactuals</a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-headline-sm text-headline-sm" href="#">Tournament</a>
+</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="account_circle">account_circle</span></button>
+</div>
+</nav>
+<!-- SideNavBar (Shared Component) - Suppressed for focus on conflict resolution -->
+<!-- Main Content Canvas -->
+<main class="pt-24 pb-12 px-margin-desktop max-w-[1920px] mx-auto min-h-screen flex flex-col gap-8">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-border-hairline pb-6">
+<div>
+<div class="flex items-center gap-3 mb-2 text-signal-crit animate-pulse">
+<span class="material-symbols-outlined fill">warning</span>
+<span class="font-badge-mono text-badge-mono text-signal-crit tracking-widest uppercase">System Alert</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2 tracking-tight">CONTINUITY CONFLICT DETECTED</h1>
+<p class="text-on-surface-variant font-headline-sm text-headline-sm">Current capacity cannot fully satisfy every active institutional obligation.</p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-elevated border border-signal-crit/30 p-3 rounded-lg min-w-[140px]">
+<div class="text-on-surface-variant font-label-caps text-label-caps mb-1">INCIDENT IMPACT</div>
+<div class="text-signal-crit font-code-stat text-code-stat">PWR -30%</div>
+</div>
+<div class="bg-surface-elevated border border-border-hairline p-3 rounded-lg min-w-[140px]">
+<div class="text-on-surface-variant font-label-caps text-label-caps mb-1">NETWORK CAP</div>
+<div class="text-tertiary font-code-stat text-code-stat">72%</div>
+</div>
+<div class="bg-surface-elevated border border-border-hairline p-3 rounded-lg min-w-[140px]">
+<div class="text-on-surface-variant font-label-caps text-label-caps mb-1">HVAC CAP</div>
+<div class="text-tertiary font-code-stat text-code-stat">68%</div>
+</div>
+</div>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+<!-- Left Column: Mission Conflict Map & Alternatives -->
+<div class="lg:col-span-8 flex flex-col gap-6">
+<!-- Mission Conflict Map -->
+<section class="bg-surface-elevated border border-border-hairline rounded-xl p-6 relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(circle at 50% 0%, #ff5c5c 0%, transparent 60%);"></div>
+<div class="flex justify-between items-center mb-6 relative z-10">
+<h2 class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-signal-crit">account_tree</span>
+                            Mission Conflict Map
+                        </h2>
+<div class="bg-error-container/20 border border-signal-crit text-signal-crit font-badge-mono text-badge-mono px-3 py-1 rounded">
+                            CAPACITY SHORTFALL: DEMAND &gt; 72% AVAILABLE
+                        </div>
+</div>
+<div class="text-signal-crit font-headline-sm text-headline-sm mb-6 uppercase text-center tracking-widest relative z-10">
+                        All Active Obligations Cannot Be Fully Satisfied
+                    </div>
+<div class="flex flex-col gap-4 relative z-10">
+<!-- Node 1: Emergency Comm -->
+<div class="flex items-center gap-4 bg-surface-container border-l-4 border-secondary p-4 rounded border-t border-r border-b border-border-hairline">
+<div class="bg-surface-dim p-3 rounded-full border border-border-hairline">
+<span class="material-symbols-outlined text-secondary">cell_tower</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<div class="font-headline-sm text-headline-sm text-on-surface">EMERGENCY COMMUNICATION</div>
+<div class="font-badge-mono text-badge-mono bg-secondary/10 text-secondary px-2 py-0.5 rounded border border-secondary/30">PROTECTED</div>
+</div>
+<div class="flex gap-4 font-code-data text-code-data text-on-surface-variant">
+<span>Req: ≥100%</span>
+<span>Priority: <span class="text-on-surface">LIFE SAFETY</span></span>
+<span>Hard Constraint: <span class="text-secondary">YES</span></span>
+</div>
+</div>
+</div>
+<!-- Connector Line -->
+<div class="w-px h-4 bg-border-hairline mx-auto"></div>
+<!-- Node 2: Online Exam -->
+<div class="flex items-center gap-4 bg-surface-container border-l-4 border-tertiary p-4 rounded border-t border-r border-b border-border-hairline shadow-[0_0_15px_rgba(249,188,69,0.1)]">
+<div class="bg-surface-dim p-3 rounded-full border border-border-hairline">
+<span class="material-symbols-outlined text-tertiary">school</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<div class="font-headline-sm text-headline-sm text-on-surface">ONLINE EXAMINATION</div>
+<div class="font-badge-mono text-badge-mono bg-tertiary/10 text-tertiary px-2 py-0.5 rounded border border-tertiary/30 animate-pulse">AT RISK / PROTECT</div>
+</div>
+<div class="flex gap-4 font-code-data text-code-data text-on-surface-variant">
+<span>Req: ≥90%</span>
+<span>Priority: <span class="text-on-surface">TIME CRITICAL</span></span>
+</div>
+</div>
+</div>
+<!-- Connector Line -->
+<div class="w-px h-4 bg-signal-crit/50 mx-auto"></div>
+<!-- Node 3: Research Lab -->
+<div class="flex items-center gap-4 bg-surface-container border-l-4 border-signal-crit p-4 rounded border-t border-r border-b border-signal-crit/30 opacity-70">
+<div class="bg-surface-dim p-3 rounded-full border border-border-hairline">
+<span class="material-symbols-outlined text-outline">science</span>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start mb-1">
+<div class="font-headline-sm text-headline-sm text-on-surface line-through decoration-signal-crit decoration-2">RESEARCH LABORATORY</div>
+<div class="font-badge-mono text-badge-mono bg-signal-crit/10 text-signal-crit px-2 py-0.5 rounded border border-signal-crit/30">DEGRADABLE</div>
+</div>
+<div class="flex gap-4 font-code-data text-code-data text-on-surface-variant">
+<span>Req: ≥80%</span>
+<span>Priority: <span class="text-on-surface">HIGH</span></span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Alternative Resolutions -->
+<section class="bg-surface-elevated border border-border-hairline rounded-xl p-6">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">alt_route</span>
+                        Alternative Resolutions Analyzed
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Option A -->
+<div class="border border-border-hairline rounded p-4 bg-surface flex flex-col justify-between opacity-60 grayscale">
+<div>
+<div class="font-badge-mono text-badge-mono text-on-surface-variant mb-2">OPTION A</div>
+<div class="font-headline-sm text-headline-sm text-on-surface mb-2">Protect Research</div>
+<p class="text-body-base text-on-surface-variant">Exam becomes infeasible due to network cap constraints.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-border-hairline flex items-center gap-2 text-signal-crit font-code-data text-code-data">
+<span class="material-symbols-outlined text-[16px]">cancel</span> Rejected
+                            </div>
+</div>
+<!-- Option B -->
+<div class="border border-border-hairline rounded p-4 bg-surface flex flex-col justify-between opacity-60 grayscale">
+<div>
+<div class="font-badge-mono text-badge-mono text-on-surface-variant mb-2">OPTION B</div>
+<div class="font-headline-sm text-headline-sm text-on-surface mb-2">Protect Exam + Research</div>
+<p class="text-body-base text-on-surface-variant">Emergency constraint violated (Life Safety risk).</p>
+</div>
+<div class="mt-4 pt-4 border-t border-border-hairline flex items-center gap-2 text-signal-crit font-code-data text-code-data">
+<span class="material-symbols-outlined text-[16px]">cancel</span> Rejected
+                            </div>
+</div>
+<!-- Option C -->
+<div class="border border-primary/50 rounded p-4 bg-primary/5 flex flex-col justify-between relative shadow-[0_0_20px_rgba(161,201,255,0.05)]">
+<div class="absolute -top-2 -right-2 bg-primary text-on-primary-fixed font-badge-mono text-badge-mono px-2 py-1 rounded shadow">RECOMMENDED</div>
+<div>
+<div class="font-badge-mono text-badge-mono text-primary mb-2">OPTION C</div>
+<div class="font-headline-sm text-headline-sm text-primary mb-2">Protect Emergency + Exam</div>
+<p class="text-body-base text-on-surface-variant">Degrade Research to maintain hard constraints.</p>
+</div>
+<div class="mt-4 pt-4 border-t border-primary/20 flex flex-col gap-1">
+<div class="flex items-center gap-2 text-secondary font-code-data text-code-data">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> Feasible
+                                </div>
+<div class="font-badge-mono text-badge-mono text-primary-fixed-dim uppercase tracking-wider mt-1">Minimum-Irreversible-Loss</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Decision Panel -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<!-- Recommended Resolution Panel -->
+<section class="bg-surface-container-high border border-border-hairline rounded-xl overflow-hidden flex flex-col h-full">
+<div class="bg-primary-fixed/10 border-b border-primary/20 p-4 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary fill text-3xl">psychiatry</span>
+<div>
+<div class="font-label-caps text-label-caps text-primary tracking-widest">SYSTEM RECOMMENDATION</div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Resolution Strategy</h2>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-6 flex-1">
+<div class="flex flex-col gap-4">
+<div>
+<div class="font-label-caps text-label-caps text-secondary mb-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">shield</span> PRESERVE
+                                </div>
+<ul class="font-code-data text-code-data text-on-surface bg-surface-elevated border border-border-hairline rounded p-3 list-none space-y-2">
+<li class="flex justify-between border-b border-border-hairline pb-1"><span>Emergency Comms</span> <span class="text-secondary">100%</span></li>
+<li class="flex justify-between"><span>Online Examination</span> <span class="text-secondary">≥SLA</span></li>
+</ul>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-signal-crit mb-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_down</span> DEGRADE
+                                </div>
+<div class="font-code-data text-code-data text-on-surface bg-surface-elevated border border-border-hairline rounded p-3">
+<div class="flex justify-between"><span>Research Compute</span> <span class="text-signal-crit">Throttled</span></div>
+</div>
+</div>
+</div>
+<!-- Why this trade-off -->
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-3 border-b border-border-hairline pb-1">TRADE-OFF JUSTIFICATION</div>
+<div class="space-y-3">
+<div class="flex items-start gap-3 bg-surface p-3 rounded border border-border-hairline">
+<div class="bg-secondary/10 p-1.5 rounded text-secondary mt-0.5"><span class="material-symbols-outlined text-[16px]">health_and_safety</span></div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface text-[13px]">LIFE SAFETY</div>
+<div class="text-body-base text-on-surface-variant text-[12px] leading-tight mt-1">Emergency Comms cannot be sacrificed.</div>
+</div>
+</div>
+<div class="flex items-start gap-3 bg-surface p-3 rounded border border-border-hairline">
+<div class="bg-tertiary/10 p-1.5 rounded text-tertiary mt-0.5"><span class="material-symbols-outlined text-[16px]">timer</span></div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface text-[13px]">TIME CRITICALITY</div>
+<div class="text-body-base text-on-surface-variant text-[12px] leading-tight mt-1">Exam high immediate loss if interrupted.</div>
+</div>
+</div>
+<div class="flex items-start gap-3 bg-surface p-3 rounded border border-border-hairline">
+<div class="bg-primary/10 p-1.5 rounded text-primary mt-0.5"><span class="material-symbols-outlined text-[16px]">restore</span></div>
+<div>
+<div class="font-headline-sm text-headline-sm text-on-surface text-[13px]">RECOVERABILITY</div>
+<div class="text-body-base text-on-surface-variant text-[12px] leading-tight mt-1">Research can be throttled and restored later.</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Expected Result -->
+<div class="bg-surface-elevated border border-secondary/30 p-4 rounded mt-auto">
+<div class="font-label-caps text-label-caps text-secondary mb-2">EXPECTED RESULT</div>
+<div class="flex justify-between items-end">
+<div class="text-body-base text-on-surface-variant text-[13px]">Irrecoverable Mission Loss</div>
+<div class="font-code-stat text-code-stat text-secondary text-2xl">0</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Bottom Action Bar & Summary -->
+<footer class="mt-8 pt-6 border-t border-border-hairline flex flex-col md:flex-row justify-between items-center gap-6">
+<div class="flex flex-wrap gap-4 text-on-surface font-code-data text-code-data bg-surface-elevated p-3 rounded border border-border-hairline">
+<span class="flex items-center gap-1"><span class="text-on-surface-variant">Contracts:</span> 3 Active</span>
+<span class="text-border-hairline">|</span>
+<span class="flex items-center gap-1"><span class="text-on-surface-variant">Hard Constraints:</span> 1</span>
+<span class="text-border-hairline">|</span>
+<span class="flex items-center gap-1"><span class="text-on-surface-variant">Feasible:</span> <span class="text-secondary">YES</span></span>
+<span class="text-border-hairline">|</span>
+<span class="flex items-center gap-1"><span class="text-on-surface-variant">Risk:</span> <span class="text-tertiary">Controlled</span></span>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 border border-border-hairline text-on-surface font-label-caps text-label-caps rounded hover:bg-surface-container transition-colors tracking-widest">
+                    EXPLORE COUNTERFACTUALS
+                </button>
+<button class="px-6 py-3 bg-secondary text-on-secondary font-label-caps text-label-caps rounded hover:bg-secondary-fixed transition-colors tracking-widest flex items-center gap-2 shadow-[0_0_15px_rgba(66,224,154,0.2)]">
+                    COMPARE RECOVERY PLANS
+                    <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</footer>
+<!-- Signature Statement -->
+<div class="text-center mt-12 mb-8">
+<p class="font-badge-mono text-badge-mono text-on-surface-variant tracking-[0.2em] uppercase opacity-50">
+                "When everything cannot be saved, CampusGuard preserves what cannot be replaced."
+            </p>
+</div>
+</main>
+</body></html>

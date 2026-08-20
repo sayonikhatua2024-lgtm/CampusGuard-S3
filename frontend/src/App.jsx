@@ -13,6 +13,7 @@ import AlertsPanel from "./components/AlertsPanel";
 import StatusBanner from "./components/StatusBanner";
 import CampusGuardPanel from "./components/CampusGuardPanel";
 import Login from "./components/Login";
+import { CampusGuardShell } from "./components/ui";
 
 const POLL_MS = 3000;
 const DEGRADED_STATUSES = ["degraded", "recovering"];
@@ -27,6 +28,7 @@ function Dashboard() {
   const { username, logout } = useAuth();
   const { push: pushToast } = useToast();
   const [activeTab, setActiveTab] = useState("ops"); // "ops" | "campusguard"
+  const [cgView, setCgView] = useState("command-center");
   const [services, setServices] = useState([]);
   const [stats, setStats] = useState(null);
   const [incidents, setIncidents] = useState([]);
@@ -168,6 +170,32 @@ function Dashboard() {
     );
   }
 
+  if (activeTab === "campusguard") {
+    return (
+      <CampusGuardShell currentView={cgView} setCurrentView={setCgView}>
+        <div className="mb-4">
+          <button
+            onClick={() => setActiveTab("ops")}
+            className="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-label-caps text-label-caps uppercase"
+          >
+            ← Return to Legacy Ops Dashboard
+          </button>
+        </div>
+        {cgView === 'command-center' && <CommandCenter />}
+        {cgView === 'continuity-conflict' && <ContinuityConflict />}
+        {cgView === 'counterfactuals' && <CounterfactualPlayground />}
+        {cgView === 'tournament' && <RecoveryTournament setCurrentView={setCgView} />}
+        {cgView === 'safety-gate' && <SafetyGate setCurrentView={setCgView} />}
+        {cgView === 'execution' && <ControlledExecution setCurrentView={setCgView} />}
+        {cgView === 'verification' && <RecoveryVerification setCurrentView={setCgView} />}
+        {cgView === 'telemetry' && <DegradedTelemetry />}
+        {cgView === 'replay' && <DecisionReplay />}
+        {cgView === 'benchmark' && <OptimizationBenchmark />}
+        {cgView !== 'command-center' && cgView !== 'continuity-conflict' && cgView !== 'counterfactuals' && cgView !== 'tournament' && cgView !== 'safety-gate' && cgView !== 'execution' && cgView !== 'verification' && cgView !== 'telemetry' && cgView !== 'replay' && cgView !== 'benchmark' && <CampusGuardPanel />}
+      </CampusGuardShell>
+    );
+  }
+
   return (
     <div className="min-h-screen text-base-500 font-sans">
       <header className="border-b border-base-700 px-6 py-4 flex items-center justify-between sticky top-0 bg-base-950/90 backdrop-blur z-10">
@@ -264,10 +292,7 @@ function Dashboard() {
       </div>
 
       <main className="px-6 py-6 max-w-[1400px] mx-auto flex flex-col gap-6 animate-fade-in">
-        {activeTab === "campusguard" ? (
-          <CampusGuardPanel />
-        ) : (
-          <>
+
             <StatusBanner failedServices={failedServices} degradedServices={degradedServices} />
 
             {/* Stat row */}
@@ -340,8 +365,7 @@ function Dashboard() {
                 <AlertsPanel alerts={alerts} />
               </div>
             </div>
-          </>
-        )}
+
       </main>
     </div>
   );
