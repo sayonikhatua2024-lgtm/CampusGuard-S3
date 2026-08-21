@@ -12,6 +12,16 @@ import FailureSimulatorPanel from "./components/FailureSimulatorPanel";
 import AlertsPanel from "./components/AlertsPanel";
 import StatusBanner from "./components/StatusBanner";
 import CampusGuardPanel from "./components/CampusGuardPanel";
+import { CommandCenter } from "./components/CommandCenter";
+import { ContinuityConflict } from "./components/ContinuityConflict";
+import { CounterfactualPlayground } from "./components/CounterfactualPlayground";
+import { RecoveryTournament } from "./components/RecoveryTournament";
+import { SafetyGate } from "./components/SafetyGate";
+import { ControlledExecution } from "./components/ControlledExecution";
+import { RecoveryVerification } from "./components/RecoveryVerification";
+import { DegradedTelemetry } from "./components/DegradedTelemetry";
+import { DecisionReplay } from "./components/DecisionReplay";
+import { OptimizationBenchmark } from "./components/OptimizationBenchmark";
 import Login from "./components/Login";
 import { CampusGuardShell } from "./components/ui";
 
@@ -27,7 +37,7 @@ export default function App() {
 function Dashboard() {
   const { username, logout } = useAuth();
   const { push: pushToast } = useToast();
-  const [activeTab, setActiveTab] = useState("ops"); // "ops" | "campusguard"
+  const [activeTab, setActiveTab] = useState("campusguard"); // "campusguard" | "ops"
   const [cgView, setCgView] = useState("command-center");
   const [services, setServices] = useState([]);
   const [stats, setStats] = useState(null);
@@ -214,8 +224,8 @@ function Dashboard() {
             <ShieldCheck size={14} className="absolute text-base-500" strokeWidth={2} />
           </div>
           <div>
-            <h1 className="text-base font-bold tracking-tight text-white">SentryCore</h1>
-            <p className="text-[11px] text-base-600 font-mono -mt-0.5">campus infra · self-healing controller</p>
+            <h1 className="text-base font-bold tracking-tight text-white">CampusGuard</h1>
+            <p className="text-[11px] text-base-600 font-mono -mt-0.5">institutional continuity · command center</p>
           </div>
         </div>
 

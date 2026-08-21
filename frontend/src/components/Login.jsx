@@ -32,9 +32,9 @@ export default function Login() {
           <div className="h-11 w-11 rounded-full border-2 border-signal-ok/60 flex items-center justify-center mb-3">
             <ShieldCheck size={20} className="text-signal-ok" strokeWidth={2} />
           </div>
-          <h1 className="text-lg font-bold tracking-tight text-white">SentryCore</h1>
+          <h1 className="text-lg font-bold tracking-tight text-white">CampusGuard</h1>
           <p className="text-[11px] text-base-600 font-mono mt-0.5">
-            campus infra · self-healing controller
+            institutional continuity · command center
           </p>
         </div>
 

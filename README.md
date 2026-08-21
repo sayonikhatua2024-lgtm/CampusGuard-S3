@@ -1,101 +1,155 @@
 # CAMPUSGUARD
 ## Institutional Continuity Command Center
 
-CampusGuard does not optimize uptime alone. It optimizes institutional continuity when everything cannot be preserved.
+> *"CampusGuard does not optimize uptime alone. It optimizes institutional continuity when everything cannot be preserved."*
 
-**LIVE DEMO:** [PENDING DEPLOYMENT]
-**SOURCE:** [sayonikhatua2024-lgtm/CampusGuard-S3](https://github.com/sayonikhatua2024-lgtm/CampusGuard-S3)
+[![CampusGuard CI](https://github.com/sayonikhatua2024-lgtm/CampusGuard-S3/actions/workflows/ci.yml/badge.svg)](https://github.com/sayonikhatua2024-lgtm/CampusGuard-S3/actions/workflows/ci.yml)
+[![Release Version](https://img.shields.io/badge/release-v1.0.0--sih2026-blue)](https://github.com/sayonikhatua2024-lgtm/CampusGuard-S3/releases)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-brightgreen)](https://www.python.org/)
+[![React 18](https://img.shields.io/badge/react-18.3.1-cyan)](https://react.dev/)
 
 ---
 
-## 1. Problem
-Modern campus cyber-physical infrastructure assumes 100% availability. But when catastrophic power grid failure, coordinated network attacks, or extreme HVAC collapse occurs, standard systems fail blindly—shutting down mission-critical research and active online examinations alongside non-essential background tasks indiscriminately.
+### Quick Navigation
+- **Architecture**: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- **3-Minute Demo Script**: [`docs/DEMO_SCRIPT.md`](docs/DEMO_SCRIPT.md)
+- **Judge FAQ**: [`docs/JUDGE_FAQ.md`](docs/JUDGE_FAQ.md)
+- **Public Demo Guide**: [`docs/PUBLIC_DEMO.md`](docs/PUBLIC_DEMO.md)
+- **Future Roadmap**: [`docs/FUTURE_INNOVATIONS.md`](docs/FUTURE_INNOVATIONS.md)
+- **Release Manifest**: [`RELEASE_MANIFEST.md`](RELEASE_MANIFEST.md)
+- **Final Submission Report**: [`FINAL_SUBMISSION_REPORT.md`](FINAL_SUBMISSION_REPORT.md)
 
-## 2. Why Existing AIOps Is Insufficient
-Traditional AIOps asks: *"What service is down?"*
-**CampusGuard asks:** *"What institutional obligation is at risk, what can be sacrificed, what must never be sacrificed, and what is the safest feasible recovery?"*
+---
 
-## 3. Solution
-CampusGuard is a Self-Healing AI Operations Controller designed specifically for institutional and mission-critical environments. It acts as an autonomous deterministic governor that shifts power, computation, and network constraints selectively to protect defined continuity contracts.
+## 1. The Problem
+Modern campus cyber-physical infrastructure (university hospitals, research supercomputers, online examination testing centers, student housing) assumes 100% capacity. When physical grid power fails by 30%, core network trunks collapse, or cooling plants fail under heat stress, standard infrastructure management tools fail blindly—shutting down mission-critical laboratory equipment and synchronous examinations alongside streaming video and dorm Wi-Fi indiscriminately.
 
-## 4. Core Innovation
-CampusGuard utilizes bounded deterministic search to construct intervention profiles dynamically mapped to institutional continuity contracts. Rather than raw failovers, CampusGuard guarantees SLA bounds via constrained mathematical optimization, maintaining safe operational telemetry restrictions.
+---
 
-## 5. Same Failure ≠ Same Optimal Response
-CampusGuard's signature philosophy: Infrastructure states do not define the response. **Context defines the response.** A 30% power drop during an active online exam yields a radically different optimization plan than the exact same failure occurring during an empty campus emergency.
+## 2. Why Traditional AIOps Falls Short
+Traditional AIOps asks: *"What server is down? How do we restart it?"*
 
-## 6. Architecture
-- **SENSE:** Active telemetry ingestion tracking infrastructure bounds.
-- **UNDERSTAND:** RCA and propagation analysis mapped to dependent missions.
-- **ASSESS:** Institutional Continuity Contracts evaluated for SLA margin risk.
-- **COUNTERFACT:** Safe forward projections evaluating hypothetical interventions without mutation.
-- **OPTIMIZE:** Bounded determinism (Institutional Continuity Optimizer) fetching the lowest collateral cost intervention.
-- **GOVERN:** State-bound human approval enforcement.
-- **ACT:** Controlled isolated intervention simulation payload dispatch.
-- **VERIFY:** Explicit post-action validation of predicted margins.
-- **REPLAY:** Forensic provenance event reconstruction.
+**CampusGuard asks:** *"What institutional obligation is at risk, what can be safely sacrificed, what must never be sacrificed, and what is the safest feasible recovery?"*
 
-## 7. Signature Differentiators
-1. Same Failure ≠ Same Optimal Response
-2. Continuity Contracts
-3. Institutional Continuity Optimizer (ICO)
-4. State-Bound Approval
-5. Less Evidence → Less Autonomy
-6. Contract-Level Verification
-7. Decision Replay / Provenance
-8. Contract-Aware Greedy Baseline
-9. Context-Switch Benchmark
-10. Controlled Simulated Execution
+---
 
-## 8. Screen Gallery
-The prototype commands 10 fully implemented functional screens:
-1. **Command Center:** Real-time SLA analysis and telemetry tracking.
-2. **Continuity Conflict:** Capacity modeling vs contract demands.
-3. **Counterfactual Playground:** Non-mutating forward projection simulation.
-4. **Recovery Tournament:** Fair algorithmic benchmarking and sacrifice comparison.
-5. **Safety Gate:** State-bound human governance authorization.
-6. **Controlled Execution:** Interventions and deterministic rollback validation.
-7. **Recovery Verification:** Explicit post-action matrix validation.
-8. **Degraded Telemetry:** Observability boundaries locking autonomous scope.
-9. **Decision Replay:** Forensic provenance logging.
-10. **Optimization Benchmark:** Methodological engine evaluation.
+## 3. The Solution
+CampusGuard is an autonomous, deterministic governor designed specifically for institutional and mission-critical environments. It acts as an intelligent continuity layer that shifts power, computation, and network constraints selectively to protect defined **Institutional Continuity Contracts**.
 
-## 9. Technology Stack
-- **Backend:** Python, FastAPI, SQLAlchemy, APScheduler
-- **Algorithm:** Deterministic Search, IsolationForest (scikit-learn)
-- **Frontend:** React, TailwindCSS, Vite
-- **Infrastructure:** Docker, MySQL
+```mermaid
+flowchart LR
+    FAIL["Physical Failure (-30% Power)"] --> IMP["Cascading Impact Analysis"]
+    IMP --> CONF["Continuity Conflict Detected"]
+    CONF --> ICO["Deterministic Search (ICO)"]
+    ICO --> GATE["State-Bound Safety Gate"]
+    GATE --> EXEC["Two-Phase Controlled Execution"]
+    EXEC --> VER["Contract-Level Verification"]
+    VER --> AUDIT["Forensic Decision Replay"]
+```
 
-## 10. Repository Structure
-- `/backend`: Headless FastAPI engine, models, optimization bounds, and endpoints.
-- `/frontend`: Monolithic React interface mapped cleanly via internal routing loops.
-- `/docs`: Technical ideathon submissions and UI specifications.
-- `/tests`: Isolated Pytest integrations natively ensuring schema boundaries without dependencies.
+---
 
-## 11. Local Setup
-See docs/PUBLIC_DEMO.md for manual backend execution commands.
-Create a `.env` file from the supplied `.env.example` templates prior to starting components.
+## 4. Core Differentiators
 
-## 12. Docker Setup
-Run `docker compose up --build -d`
-*(Note: Current development verification tests via Docker are limited natively by local OS kernel overlayfs issues. Code structure operates efficiently standalone and in properly hosted Docker daemons.)*
+1. **Same Failure ≠ Same Optimal Response**: Infrastructure state alone does not dictate the response. **Institutional Context** defines the response. A 30% power drop during an active exam produces a radically different optimization plan than the exact same failure during an empty campus emergency.
+2. **Continuity Contracts**: Multi-attribute SLA bounds with strict priority covenants.
+3. **Institutional Continuity Optimizer (ICO)**: Deterministic bounded search guaranteeing mathematical feasibility.
+4. **State-Bound Human Governance**: Approvals are cryptographically bound to specific telemetry states; state drift automatically invalidates stale approvals.
+5. **"Less Evidence → Less Autonomy"**: Degraded sensor streams automatically restrict automated intervention boundaries.
+6. **Explicit Decoupled Verification**: Execution dispatch success is validated separately from actual recovery SLA satisfaction.
+7. **Forensic Provenance Tree**: Complete auditability of every decision, telemetry event, and human action.
 
-## 13. Public Deployment
-Reference `docs/PUBLIC_DEMO.md` for Railway platform deployment parameters bridging the GitHub repo configuration dynamically.
+---
 
-## 14. Testing
-Run the isolated automated test suite natively protecting schema bounds:
-Run `PYTHONPATH=./backend python -m pytest backend/tests/ -v`
+## 5. Ten-Screen Workflow Gallery
 
-## 15. Security Note & Limitations
-This is a competition prototype using controlled simulated campus infrastructure. Do not connect the public demo to real campus actuators. Execution is strictly bound inside simulated parameters to preserve environment boundaries. Benchmark results are deterministic prototype scenarios.
+| Screen | Workflow Purpose |
+| :--- | :--- |
+| **01. Command Center** | Real-time infrastructure capacity, active missions, and cascading dependency chain. |
+| **02. Continuity Conflict** | Multi-context capacity vs demand envelope comparison (Contexts A, B, C). |
+| **03. Counterfactual Playground** | Non-mutating forward projection simulation with interactive parameter sliders. |
+| **04. Recovery Tournament** | Multi-strategy competition comparing Greedy, Do-Nothing, and ICO outcomes. |
+| **05. Safety Gate** | State-bound operator authorization with telemetry confidence verification. |
+| **06. Controlled Execution** | Two-phase simulated execution (Dry Run sandbox -> Live payload dispatch). |
+| **07. Recovery Verification** | Post-action verification matrix validating predicted vs actual SLA margins. |
+| **08. Degraded Telemetry** | Sensor fault injection demonstrating autonomous scope throttling. |
+| **09. Decision Replay** | Chronological forensic provenance tree with full event payload inspection. |
+| **10. Optimization Benchmark** | Empirical evaluation across standardized multi-scenario stress tests. |
 
-## 16. Future Roadmap
-- **FUTURE / POST-SUBMISSION:**
-  - Continuity Constitution / Policy Compiler
-  - Confidence-Aware Optimization
-  - Alternate-Path Replay
-  - Formal Verification
-  - Institutional Trade-off Ledger
-  - Recovery Budget
-  - Game Days
+---
+
+## 6. Technology Stack
+- **Backend**: Python 3.11, FastAPI, SQLAlchemy, APScheduler, Scikit-learn (IsolationForest), Pydantic
+- **Frontend**: React 18, Tailwind CSS, Vite, Recharts, Lucide-React
+- **Database**: MySQL 8.0 (Production) / SQLite In-Memory (Test/Standalone)
+- **DevOps**: Docker, Docker Compose, GitHub Actions CI
+
+---
+
+## 7. Local Run Instructions
+
+### Prerequisites
+- Node.js 18+ & npm
+- Python 3.11+
+
+### Backend Setup
+```powershell
+# Navigate to backend
+cd backend
+
+# Create virtual environment and install dependencies
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+
+# Run backend (using SQLite standalone mode)
+$env:DATABASE_URL="sqlite:///./campusguard.db"
+uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+```
+API Documentation available at: `http://127.0.0.1:8000/docs`
+
+### Frontend Setup
+```powershell
+# Navigate to frontend
+cd frontend
+
+# Install dependencies and launch Vite dev server
+npm install
+npm run dev
+```
+Dashboard available at: `http://localhost:5173/`
+
+**Demo Credentials**: `admin` / `admin123`
+
+---
+
+## 8. Docker Deployment
+```powershell
+# Build and launch MySQL, Backend, and Frontend containers
+docker compose up --build -d
+```
+*(See [`RELEASE_MANIFEST.md`](RELEASE_MANIFEST.md) for host-specific environment notes).*
+
+---
+
+## 9. Automated Testing
+Run the complete automated test suite:
+```powershell
+$env:PYTHONPATH="backend"
+python -m pytest backend/tests/ -v
+```
+
+---
+
+## 10. Security & Responsible Use
+This repository is a competition prototype utilizing a controlled simulated campus cyber-physical infrastructure model. It is designed for safe evaluation and demonstration of deterministic continuity algorithms and must not be connected to unvalidated physical actuators without appropriate hardware safety bounds.
+
+---
+
+## 11. Post-Submission Roadmap
+See [`docs/FUTURE_INNOVATIONS.md`](docs/FUTURE_INNOVATIONS.md) for upcoming architectural developments including:
+- Cumulative Continuity Debt Ledger
+- Declarative Continuity Constitution / SMT Policy Compiler
+- Recovery Equity & Demographic Fairness Governor
+- Continuous Resilience Drift Detector
+- Continuity Game Days & Synthetic Fault Campaigns
