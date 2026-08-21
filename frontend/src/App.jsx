@@ -191,16 +191,16 @@ function Dashboard() {
             ← Return to Legacy Ops Dashboard
           </button>
         </div>
-        {cgView === 'command-center' && <CommandCenter />}
-        {cgView === 'continuity-conflict' && <ContinuityConflict />}
-        {cgView === 'counterfactuals' && <CounterfactualPlayground />}
+        {cgView === 'command-center' && <CommandCenter setCurrentView={setCgView} />}
+        {cgView === 'continuity-conflict' && <ContinuityConflict setCurrentView={setCgView} />}
+        {cgView === 'counterfactuals' && <CounterfactualPlayground setCurrentView={setCgView} />}
         {cgView === 'tournament' && <RecoveryTournament setCurrentView={setCgView} />}
         {cgView === 'safety-gate' && <SafetyGate setCurrentView={setCgView} />}
         {cgView === 'execution' && <ControlledExecution setCurrentView={setCgView} />}
         {cgView === 'verification' && <RecoveryVerification setCurrentView={setCgView} />}
-        {cgView === 'telemetry' && <DegradedTelemetry />}
-        {cgView === 'replay' && <DecisionReplay />}
-        {cgView === 'benchmark' && <OptimizationBenchmark />}
+        {cgView === 'telemetry' && <DegradedTelemetry setCurrentView={setCgView} />}
+        {cgView === 'replay' && <DecisionReplay setCurrentView={setCgView} />}
+        {cgView === 'benchmark' && <OptimizationBenchmark setCurrentView={setCgView} />}
         {cgView !== 'command-center' && cgView !== 'continuity-conflict' && cgView !== 'counterfactuals' && cgView !== 'tournament' && cgView !== 'safety-gate' && cgView !== 'execution' && cgView !== 'verification' && cgView !== 'telemetry' && cgView !== 'replay' && cgView !== 'benchmark' && <CampusGuardPanel />}
       </CampusGuardShell>
     );

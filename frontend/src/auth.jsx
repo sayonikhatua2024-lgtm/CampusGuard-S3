@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useCallback } from "react";
 
 const AuthContext = createContext(null);
-const TOKEN_KEY = "sentrycore_token";
-const USER_KEY = "sentrycore_user";
+const TOKEN_KEY = "campusguard_token";
+const USER_KEY = "campusguard_user";
 
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY));
-  const [username, setUsername] = useState(() => localStorage.getItem(USER_KEY));
+  const [token, setToken] = useState(() => localStorage.getItem(TOKEN_KEY) || localStorage.getItem("sentrycore_token"));
+  const [username, setUsername] = useState(() => localStorage.getItem(USER_KEY) || localStorage.getItem("sentrycore_user"));
 
   const login = useCallback((newToken, newUsername) => {
     localStorage.setItem(TOKEN_KEY, newToken);

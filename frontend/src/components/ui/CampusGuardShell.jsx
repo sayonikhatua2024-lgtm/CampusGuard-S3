@@ -1,17 +1,18 @@
 import React from 'react';
-import { Shield, LayoutGrid, Zap, ShieldAlert, GitCommit, GitPullRequest, GitMerge, ListChecks, History, BarChart3, Menu, X, Database, LogOut } from 'lucide-react';
+import { Shield, LayoutGrid, Zap, ShieldAlert, GitCommit, GitPullRequest, GitMerge, ListChecks, History, BarChart3, Menu, X, Database, LogOut, Thermometer } from 'lucide-react';
 import { useAuth } from "../../auth.jsx";
 
 const NAV_ITEMS = [
   { id: 'command-center', label: 'Command Center', icon: LayoutGrid },
-  { id: 'counterfactuals', label: 'Counterfactuals', icon: GitCommit },
   { id: 'continuity-conflict', label: 'Continuity Conflict', icon: GitPullRequest },
-  { id: 'tournament', label: 'Tournament', icon: GitMerge },
+  { id: 'counterfactuals', label: 'Counterfactual Playground', icon: GitCommit },
+  { id: 'tournament', label: 'Recovery Tournament', icon: GitMerge },
   { id: 'safety-gate', label: 'Safety Gate', icon: ShieldAlert },
-  { id: 'execution', label: 'Execution', icon: Zap },
-  { id: 'verification', label: 'Verification', icon: ListChecks },
-  { id: 'replay', label: 'Replay', icon: History },
-  { id: 'benchmark', label: 'Benchmark', icon: BarChart3 },
+  { id: 'execution', label: 'Controlled Execution', icon: Zap },
+  { id: 'verification', label: 'Recovery Verification', icon: ListChecks },
+  { id: 'telemetry', label: 'Degraded Telemetry', icon: Thermometer },
+  { id: 'replay', label: 'Decision Replay', icon: History },
+  { id: 'benchmark', label: 'Optimization Benchmark', icon: BarChart3 },
 ];
 
 export function GlobalHeader({ onMenuToggle }) {

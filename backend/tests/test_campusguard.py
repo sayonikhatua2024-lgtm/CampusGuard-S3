@@ -21,7 +21,7 @@ def get_auth_headers():
 def test_health():
     response = client.get("/api/health")
     assert response.status_code == 200
-    assert response.json() == {"status": "ok"}
+    assert response.json() == {"status": "ok", "service": "CampusGuard", "version": "4.2.0"}
 
 
 def test_auth_protection():

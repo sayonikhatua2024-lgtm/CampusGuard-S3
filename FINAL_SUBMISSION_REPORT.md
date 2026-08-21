@@ -73,7 +73,7 @@ CampusGuard introduces **Institutional Continuity Contracts** and the **Institut
 - Monorepo structure prepared for standard split cloud deployment:
   - **Frontend**: Vite SPA hosted on Vercel/Netlify/Railway.
   - **Backend**: FastAPI headless API service hosted on Railway/Render/AWS.
-  - **Database**: Managed MySQL 8.0 instance (or SQLite for ephemeral demonstrations).
+  - **Database**: Managed MySQL 8.0 instance (with isolated SQLite test harness for CI).
 
 ### 14. Security & Configuration
 - Strict separation of secrets: `.env.example` templates provided across frontend and backend.

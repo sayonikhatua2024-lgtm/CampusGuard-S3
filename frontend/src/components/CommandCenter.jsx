@@ -3,7 +3,7 @@ import { api } from '../api';
 import { Card, SectionCard, StatusBadge, MetricCard, SectionHeader, PrimaryButton, SecondaryButton } from './ui';
 import { ShieldAlert, Activity, Server, Zap, Wind, Network, AlertTriangle, ShieldCheck, CheckCircle2, ChevronRight, Play } from 'lucide-react';
 
-export function CommandCenter() {
+export function CommandCenter({ setCurrentView }) {
   const [data, setData] = useState({
     state: null,
     impact: null,
@@ -217,7 +217,7 @@ export function CommandCenter() {
 
             <div className="flex items-center justify-between border-t border-border-hairline pt-4">
                 <div className="font-badge-mono text-badge-mono text-on-surface-variant uppercase">Intervention Cost: Minimal</div>
-                <PrimaryButton icon={Play} className="text-sm py-1.5 px-3">
+                <PrimaryButton icon={Play} className="text-sm py-1.5 px-3" onClick={() => setCurrentView && setCurrentView('continuity-conflict')}>
                    Review Plan
                 </PrimaryButton>
             </div>

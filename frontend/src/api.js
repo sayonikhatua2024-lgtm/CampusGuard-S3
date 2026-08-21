@@ -1,6 +1,6 @@
 import { getStoredToken, clearStoredToken } from "./auth.jsx";
 
-const BASE = import.meta.env.VITE_API_BASE_URL || "";
+const BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:8000";
 
 class UnauthorizedError extends Error {}
 

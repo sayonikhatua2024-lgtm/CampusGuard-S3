@@ -17,7 +17,7 @@ from app.api import (
 )
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("self-healing-controller")
+logger = logging.getLogger("campusguard")
 
 app = FastAPI(title="CampusGuard Institutional Continuity Command Center", version="4.2.0")
 
@@ -53,17 +53,21 @@ def on_startup():
                 try:
                     conn.execute(text(f"ALTER TABLE mission_activities ADD COLUMN {col} {col_type}"))
                     conn.commit()
-                except Exception:
-                    pass
+                except Exception as col_err:
+                    err_msg = str(col_err).lower()
+                    if "duplicate column" in err_msg or "already exists" in err_msg or "operationalerror" in err_msg:
+                        logger.debug("Column %s migration check: %s", col, col_err)
+                    else:
+                        logger.warning("Column addition %s failed: %s", col, col_err)
     except Exception as e:
-        logger.warning("Auto column migration check: %s", e)
+        logger.warning("Database startup migration check failed: %s", e)
 
     orchestrator.bootstrap_services()
     scheduler.add_job(
         _safe_tick, "interval", seconds=MONITOR_INTERVAL_SECONDS, id="monitor_tick", max_instances=1
     )
     scheduler.start()
-    logger.info("Self-Healing Controller started. Monitoring loop every %ss", MONITOR_INTERVAL_SECONDS)
+    logger.info("CampusGuard Controller started. Monitoring loop every %ss", MONITOR_INTERVAL_SECONDS)
 
 
 @app.on_event("shutdown")
@@ -80,10 +84,6 @@ def _safe_tick():
 
 @app.get("/api/health")
 def health():
-    return {"status": "ok"}
-
-@app.get("/api/health")
-def health_check():
     return {
         "status": "ok",
         "service": "CampusGuard",
