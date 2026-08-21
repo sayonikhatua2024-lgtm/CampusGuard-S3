@@ -1,0 +1,14 @@
+fastapi==0.141.1
+uvicorn[standard]==0.52.4
+sqlalchemy==2.0.52
+pymysql==1.2.0
+cryptography>=42.0.0
+apscheduler==3.11.3
+python-jose[cryptography]==3.5.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+pydantic==2.13.4
+numpy==2.5.2
+scikit-learn==1.9.0
+requests==2.34.2
+python-multipart==0.0.32
