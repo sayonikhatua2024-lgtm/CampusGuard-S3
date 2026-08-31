@@ -1,31 +1,22 @@
-import React from 'react';
+import React from "react";
+import { theme } from "../../theme";
 
-export function Card({ children, className = '', border = true, elevated = false, noPadding = false }) {
+export default function Card({ children, className = "", style = {}, onClick }) {
   return (
-    <div className={`
-      rounded border border-border-hairline
-      ${elevated ? 'bg-surface-elevated' : 'bg-surface'}
-      ${noPadding ? '' : 'p-gutter'}
-      ${className}
-    `}>
+    <div
+      onClick={onClick}
+      className={`rounded-2xl transition-all duration-200 ${
+        onClick ? "cursor-pointer hover:border-cyan-500/40 hover:scale-[1.008]" : ""
+      } ${className}`}
+      style={{
+        background: "rgba(6, 15, 32, 0.75)",
+        border: "1px solid rgba(0, 212, 255, 0.12)",
+        backdropFilter: "blur(12px)",
+        boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+        ...style
+      }}
+    >
       {children}
     </div>
-  );
-}
-
-export function SectionCard({ title, icon: Icon, children, className = '', action }) {
-  return (
-    <Card className={`flex flex-col h-full ${className}`} noPadding>
-      <div className="flex justify-between items-center px-4 py-3 border-b border-border-hairline bg-surface-container-low">
-        <h3 className="font-label-caps text-label-caps text-on-surface-variant uppercase flex items-center gap-2">
-          {Icon && <Icon size={16} />}
-          {title}
-        </h3>
-        {action && <div>{action}</div>}
-      </div>
-      <div className="p-gutter flex-1">
-        {children}
-      </div>
-    </Card>
   );
 }
