@@ -1,3 +1,5 @@
+import os
+os.environ['DATABASE_URL'] = 'sqlite:///./test.db'
 """Phase 6 Automated Test Suite: Resilience, Provenance, Replay, Benchmarking & Competition Hardening.
 
 Covers:
