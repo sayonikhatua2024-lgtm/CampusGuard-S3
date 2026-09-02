@@ -19,8 +19,13 @@ import SafetyGateModal from "./components/modals/SafetyGateModal";
 import ControlledExecutionModal from "./components/modals/ControlledExecutionModal";
 import VerificationModal from "./components/modals/VerificationModal";
 
+import AIBannerAlert from "./components/ai/AIBannerAlert";
+import AINotificationModal from "./components/ai/AINotificationModal";
+import AINotificationDrawer from "./components/ai/AINotificationDrawer";
+
 import { theme } from "./theme";
 import { initialIncidents } from "./data/mockData";
+import { aiBlockScenarios } from "./data/aiBlockScenarios";
 
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,10 +33,18 @@ export default function App() {
   const [selectedIncident, setSelectedIncident] = useState(null);
   const [timeFilter, setTimeFilter] = useState("Last 1h");
 
-  // Modals state
+  // Standard Modals
   const [safetyGateOpen, setSafetyGateOpen] = useState(false);
   const [executionOpen, setExecutionOpen] = useState(false);
   const [verificationOpen, setVerificationOpen] = useState(false);
+
+  // AI Integration: Alert & Notification States
+  const [activeAIAlerts, setActiveAIAlerts] = useState(aiBlockScenarios);
+  const [resolvedAIAlerts, setResolvedAIAlerts] = useState([]);
+  const [currentAIScenario, setCurrentAIScenario] = useState(null);
+  const [aiModalOpen, setAiModalOpen] = useState(false);
+  const [aiDrawerOpen, setAiDrawerOpen] = useState(false);
+  const [bannerAlert, setBannerAlert] = useState(aiBlockScenarios[0]); // Initial CCTV block banner alert
 
   // Hash-based routing synchronization
   useEffect(() => {
@@ -74,11 +87,46 @@ export default function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
     window.location.hash = "dashboard";
+    // Show AI notification alert shortly after login
+    setTimeout(() => {
+      setBannerAlert(aiBlockScenarios[0]);
+    }, 800);
   };
 
   const handleSignOut = () => {
     setIsAuthenticated(false);
     window.location.hash = "";
+  };
+
+  // AI Integration Handlers
+  const handleOpenAISolution = (scenarioOrType) => {
+    let target = scenarioOrType;
+    if (typeof scenarioOrType === "string") {
+      target = activeAIAlerts.find((a) => a.type === scenarioOrType) || aiBlockScenarios.find((a) => a.type === scenarioOrType) || aiBlockScenarios[0];
+    }
+    setCurrentAIScenario(target);
+    setAiModalOpen(true);
+    setAiDrawerOpen(false);
+    setBannerAlert(null);
+  };
+
+  const handleTriggerAISimulation = (type) => {
+    const template = aiBlockScenarios.find((a) => a.type === type) || aiBlockScenarios[0];
+    const newAlert = {
+      ...template,
+      id: `AI-BLOCK-${Date.now().toString().slice(-4)}`,
+      detectedAt: "Just now"
+    };
+    setActiveAIAlerts((prev) => [newAlert, ...prev.filter((a) => a.id !== newAlert.id)]);
+    setBannerAlert(newAlert);
+  };
+
+  const handleApplyAISolutionSuccess = (scenarioId) => {
+    const fixed = activeAIAlerts.find((a) => a.id === scenarioId) || currentAIScenario;
+    if (fixed) {
+      setActiveAIAlerts((prev) => prev.filter((a) => a.id !== scenarioId));
+      setResolvedAIAlerts((prev) => [fixed, ...prev]);
+    }
   };
 
   const handleAuthorizeSafetyGate = () => {
@@ -91,7 +139,6 @@ export default function App() {
     setVerificationOpen(true);
   };
 
-  // If unauthenticated, show the Login page
   if (!isAuthenticated) {
     return <Login onLogin={handleLogin} />;
   }
@@ -115,6 +162,8 @@ export default function App() {
             onApprove={() => setSafetyGateOpen(true)}
             onExecute={() => setExecutionOpen(true)}
             onVerify={() => setVerificationOpen(true)}
+            onOpenAISolution={handleOpenAISolution}
+            onTriggerSimulation={handleTriggerAISimulation}
           />
         );
       case "infrastructure":
@@ -134,7 +183,7 @@ export default function App() {
       case "iot":
         return <IoTMonitoring />;
       case "cctv":
-        return <CCTV />;
+        return <CCTV onTriggerAISolution={handleOpenAISolution} />;
       case "reports":
         return <Reports />;
       case "playbook":
@@ -151,6 +200,8 @@ export default function App() {
             onApprove={() => setSafetyGateOpen(true)}
             onExecute={() => setExecutionOpen(true)}
             onVerify={() => setVerificationOpen(true)}
+            onOpenAISolution={handleOpenAISolution}
+            onTriggerSimulation={handleTriggerAISimulation}
           />
         );
     }
@@ -170,13 +221,42 @@ export default function App() {
           timeFilter={timeFilter}
           setTimeFilter={setTimeFilter}
           onSignOut={handleSignOut}
+          alertCount={activeAIAlerts.length}
+          onOpenAlerts={() => setAiDrawerOpen(true)}
+          onSimulateBlock={() => handleTriggerAISimulation("API_BLOCK")}
         />
         <main className="flex-1 overflow-y-auto p-6 scroll-smooth">
           {renderActivePage()}
         </main>
       </div>
 
-      {/* 3. Interactive Modals */}
+      {/* 3. AI Real-time Block Banner Notification */}
+      <AIBannerAlert
+        scenario={bannerAlert}
+        onOpenSolution={handleOpenAISolution}
+        onDismiss={() => setBannerAlert(null)}
+      />
+
+      {/* 4. AI Notification & Diagnostics Drawer */}
+      <AINotificationDrawer
+        open={aiDrawerOpen}
+        onClose={() => setAiDrawerOpen(false)}
+        activeAlerts={activeAIAlerts}
+        resolvedAlerts={resolvedAIAlerts}
+        onSelectAlert={handleOpenAISolution}
+        onTriggerSimulation={handleTriggerAISimulation}
+        onClearResolved={() => setResolvedAIAlerts([])}
+      />
+
+      {/* 5. AI Diagnosis & One-Click Solution Modal */}
+      <AINotificationModal
+        open={aiModalOpen}
+        scenario={currentAIScenario}
+        onClose={() => setAiModalOpen(false)}
+        onApplySuccess={handleApplyAISolutionSuccess}
+      />
+
+      {/* 6. Standard Interactive Modals */}
       <SafetyGateModal
         open={safetyGateOpen}
         onClose={() => setSafetyGateOpen(false)}

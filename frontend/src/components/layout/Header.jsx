@@ -1,8 +1,15 @@
 import React from "react";
-import { Bell, Search, RefreshCw, User, ShieldAlert, LogOut } from "lucide-react";
+import { Bell, Search, RefreshCw, User, ShieldAlert, LogOut, Brain, Sparkles } from "lucide-react";
 import { theme } from "../../theme";
 
-export default function Header({ timeFilter = "Last 1h", setTimeFilter, onSignOut }) {
+export default function Header({
+  timeFilter = "Last 1h",
+  setTimeFilter,
+  onSignOut,
+  alertCount = 0,
+  onOpenAlerts,
+  onSimulateBlock
+}) {
   const timeRanges = ["Last 15m", "Last 1h", "Last 6h", "Last 24h", "Last 7d"];
 
   return (
@@ -13,13 +20,13 @@ export default function Header({ timeFilter = "Last 1h", setTimeFilter, onSignOu
         backdropFilter: "blur(16px)"
       }}
     >
-      {/* Search & Location Breadcrumb */}
+      {/* Search */}
       <div className="flex items-center gap-4 flex-1 max-w-md">
         <div className="relative w-full">
           <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search systems, telemetry, incidents, APs, racks..."
+            placeholder="Search AI diagnostics, cameras, API endpoints, switches..."
             className="w-full bg-slate-900/80 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 transition-colors"
           />
         </div>
@@ -27,18 +34,14 @@ export default function Header({ timeFilter = "Last 1h", setTimeFilter, onSignOu
 
       {/* Right Controls */}
       <div className="flex items-center gap-3">
-        {/* Active Incident Warning Alert */}
-        <div
-          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold font-mono"
-          style={{
-            background: "rgba(255,77,109,0.1)",
-            border: "1px solid rgba(255,77,109,0.3)",
-            color: theme.red
-          }}
+        {/* AI Quick Simulate Button */}
+        <button
+          onClick={onSimulateBlock}
+          className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold font-mono text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 hover:bg-cyan-500/20 hover:border-cyan-400 transition-all"
         >
-          <ShieldAlert size={14} className="animate-pulse" />
-          <span>1 ACTIVE CRITICAL INCIDENT</span>
-        </div>
+          <Sparkles size={13} className="text-cyan-400 animate-pulse" />
+          <span>Simulate AI Block</span>
+        </button>
 
         {/* Time Filter Selector */}
         <div className="flex items-center bg-slate-900/90 border border-slate-800 p-1 rounded-xl">
@@ -57,22 +60,20 @@ export default function Header({ timeFilter = "Last 1h", setTimeFilter, onSignOu
           ))}
         </div>
 
-        {/* Refresh button */}
+        {/* AI Notification Bell */}
         <button
-          title="Refresh Telemetry"
-          className="p-2 rounded-xl text-slate-400 hover:text-cyan-400 hover:bg-slate-800/60 border border-slate-800 transition-colors"
-        >
-          <RefreshCw size={15} />
-        </button>
-
-        {/* Notifications */}
-        <button
-          title="Alerts"
+          onClick={onOpenAlerts}
+          title="AI Alerts & Notifications"
           className="relative p-2 rounded-xl text-slate-400 hover:text-cyan-400 hover:bg-slate-800/60 border border-slate-800 transition-colors"
         >
-          <Bell size={15} />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-cyan-400" />
+          <Bell size={16} />
+          {alertCount > 0 && (
+            <>
+              <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-rose-500 text-[9px] font-bold text-white shadow-lg animate-pulse">
+                {alertCount}
+              </span>
+            </>
+          )}
         </button>
 
         {/* User profile & Logout */}

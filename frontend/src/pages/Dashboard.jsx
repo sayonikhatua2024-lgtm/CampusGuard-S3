@@ -11,7 +11,9 @@ import {
   Camera,
   Play,
   CheckCircle,
-  Clock
+  Clock,
+  Sparkles,
+  Zap
 } from "lucide-react";
 import Card from "../components/ui/Card";
 import SectionTitle from "../components/ui/SectionTitle";
@@ -26,10 +28,63 @@ export default function Dashboard({
   onApprove,
   onExecute,
   onVerify,
-  pipelineState
+  onOpenAISolution,
+  onTriggerSimulation
 }) {
   return (
     <div className="space-y-6 animate-fade-in pb-10">
+      {/* AI Block Alert & Instant Resolution Banner */}
+      <div
+        className="p-4 rounded-2xl border flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono shadow-xl relative overflow-hidden"
+        style={{
+          background: "linear-gradient(135deg, rgba(6,15,32,0.95), rgba(15,31,61,0.9))",
+          borderColor: "rgba(0, 212, 255, 0.35)",
+          boxShadow: "0 0 30px rgba(0, 212, 255, 0.12)"
+        }}
+      >
+        <div className="flex items-center gap-3.5">
+          <div
+            className="w-11 h-11 rounded-2xl flex items-center justify-center flex-shrink-0"
+            style={{
+              background: "linear-gradient(135deg, rgba(0,255,136,0.2), rgba(0,212,255,0.2))",
+              border: "1px solid rgba(0,212,255,0.5)"
+            }}
+          >
+            <Brain size={22} className="text-cyan-400" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2 mb-0.5">
+              <span className="text-xs font-bold text-cyan-300 flex items-center gap-1">
+                <Sparkles size={13} /> AI ACTIVE GUARDIAN · TELEMETRY MONITOR
+              </span>
+              <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                2 BLOCKS DETECTED
+              </span>
+            </div>
+            <p className="text-xs text-slate-300">
+              AI engine detected PoE Camera Block (<strong className="text-amber-300">CAM-PLB-003</strong>) and API Gateway Circuit Breaker Block (<strong className="text-purple-300">/api/v1/students</strong>).
+            </p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2.5 flex-shrink-0">
+          <button
+            onClick={() => onOpenAISolution && onOpenAISolution("CCTV_BLOCK")}
+            className="px-3.5 py-2 rounded-xl text-xs font-bold font-mono text-slate-950 flex items-center gap-1.5 hover:scale-105 transition-transform"
+            style={{ background: "linear-gradient(90deg, #ff8c42, #00d4ff)" }}
+          >
+            <Camera size={13} /> Fix CCTV Block
+          </button>
+          <button
+            onClick={() => onOpenAISolution && onOpenAISolution("API_BLOCK")}
+            className="px-3.5 py-2 rounded-xl text-xs font-bold font-mono text-slate-950 flex items-center gap-1.5 hover:scale-105 transition-transform"
+            style={{ background: "linear-gradient(90deg, #a855f7, #00d4ff)" }}
+          >
+            <Server size={13} /> Fix API Block
+          </button>
+        </div>
+      </div>
+
       {/* 1. Executive KPI Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* System Health */}
